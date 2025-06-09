@@ -65,7 +65,7 @@ const Barranavegacion = () => {
           className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
           onClick={() => handleNavigationClick('/')}
         >
-          Inicio prueba
+          Inicio
         </NavLink>
         <NavLink 
           to="/contactar-alquiler-de-cofres" 
