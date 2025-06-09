@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Button, Card, Modal, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { collection, getDocs, query, orderBy, limit, startAt, endAt, } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, limit, deleteDoc, startAt, endAt, doc, getDoc } from 'firebase/firestore';
 import { firestore } from '../firebase-config';
 import defaultProductImage from '../assets/img/logo.jpg';
 import { differenceInDays, parse, isValid } from 'date-fns';
 import Confirmations from './Confirmations';
 // Función para eliminar la última reserva
-/*const resetAndRedirect = async () => {
+const resetAndRedirect = async () => {
     try {
         const reservationsCollection = collection(firestore, 'reservations');
         const q = query(reservationsCollection, orderBy('createdAt', 'desc'), limit(1));
@@ -22,7 +22,7 @@ import Confirmations from './Confirmations';
     } catch (error) {
         console.error('Error al eliminar la última reserva:', error);
     }
-}*/
+}
 
 function ProductCard({ product, onViewDetails, onReserve, onAddToCart, reservation, calculateTotalCost }) {
     if (!product || !reservation) return null;
@@ -105,7 +105,7 @@ function SelectionProduct() {
     const [productType, setProductType] = useState([]);
     const navigate = useNavigate();
     const location = useLocation();
-   /**  const [history, setHistory] = useState([]);  // Historial de los tipos de productos visitados*/
+    const [history, setHistory] = useState([]);  // Historial de los tipos de productos visitados
 
     const { productType: initialProductType = [], cart: initialCart = [] } = location.state || {};  
 
@@ -117,7 +117,7 @@ function SelectionProduct() {
     }, [initialProductType]); // Se vuelve a llamar si productType cambia
 
 // Función para verificar la cantidad del producto en Firebase
-/*const checkProductAvailability = async (productId) => {
+const checkProductAvailability = async (productId) => {
     try {
         const productRef = doc(firestore, 'products', productId);
         const productSnapshot = await getDoc(productRef);
@@ -133,7 +133,7 @@ function SelectionProduct() {
         console.error("Error al obtener la cantidad del producto: ", error);
         return 0;
     }
-};*/
+};
 
 const handleAddToCart = async (product) => {
     // Verificar la cantidad del producto antes de añadirlo al carrito

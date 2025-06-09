@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { Container, Row, Col, Button, Form, Card, Toast, Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//*import extraImage from '../assets/img/barra-coche.jpeg';**/
-/**import extraImagePortabici from '../assets/img/portabicicleta.jpg';*/
+import extraImage from '../assets/img/barra-coche.jpeg';
+import extraImagePortabici from '../assets/img/portabicicleta.jpg';
 import { firestore } from '../firebase-config';
 import { collection, query, orderBy, limit, getDocs, deleteDoc } from 'firebase/firestore';
 import { Elements } from '@stripe/react-stripe-js';
@@ -79,13 +79,13 @@ function ReservationPage() {
     const [roofPrice, setRoofPrice] = useState(initialRoofPrice);
     const [insuranceCost, setInsuranceCost] = useState(0);
     const [extraCost, setExtraCost] = useState(0);
-   //* const [extraCostPortabici, setExtraCostPortabici] = useState(0);
-    //*const [extraCostSillaBebe, setExtraCostSillaBebe] = useState(0);
-    //*const [TotalCost, setTotalCost] = useState(0);
+    const [extraCostPortabici, setExtraCostPortabici] = useState(0);
+    const [extraCostSillaBebe, setExtraCostSillaBebe] = useState(0);
+    const [TotalCost, setTotalCost] = useState(0);
     const [daysCount, setDaysCount] = useState(0);
     const [insuranceSelected, setInsuranceSelected] = useState(false);
-    //*const [extraSelected, setExtraSelected] = useState(false);**/
-    //*const [extraSelectedPorabici, setExtraSelectedPortabici] = useState(false);**/
+    const [extraSelected, setExtraSelected] = useState(false);
+    const [extraSelectedPorabici, setExtraSelectedPortabici] = useState(false);
     const [personalInfo, setPersonalInfo] = useState({
         name: '',
         email: '',
