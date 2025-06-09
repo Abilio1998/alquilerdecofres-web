@@ -1,0 +1,31 @@
+.footer {
+    background-color: #343a40;
+    color: #ffffff;
+  }
+  
+  .footer a {
+    color: #ffffff;          /* Color del texto del enlace */
+    text-decoration: none!important;   /* Sin subrayado para enlaces de texto */
+  }
+  
+  .footer a:hover {
+    text-decoration: underline; /* Subrayado solo al pasar el mouse */
+  }
+  
+  .logo {
+    max-width: 120px; /* Ajusta el tamaño según sea necesario */
+    height: auto;
+    margin-bottom: 15px; /* Espacio debajo del logo */
+  }
+  
+  .social-logo {
+    width: 24px; /* Ajusta el tamaño de los iconos según sea necesario */
+    height: 24px;
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+  }
+  
+  .social-icon {
+    display: flex; /* Alinea el icono y el texto en línea */
+    align-items: center; /* Centra verticalmente los elementos */
+  }
+  

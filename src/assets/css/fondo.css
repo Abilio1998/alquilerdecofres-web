@@ -1,0 +1,367 @@
+/* Estilo para el fondo */
+.fondo {
+  width: 100vw; /* Ocupa el 100% del ancho de la pantalla */
+  height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
+  background-image: url('../img/alquiler-de-coche-mataro-barcelona.PNG'); /* Ruta a tu imagen */
+  background-size: cover; /* Ajusta la imagen dentro del contenedor sin recortarla */
+  background-position: center; /* Centra la imagen en el contenedor */
+  background-repeat: no-repeat; /* Evita la repetición de la imagen */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra verticalmente el contenido */
+  align-items: center; /* Centra horizontalmente el contenido */
+  text-align: center; /* Centra el texto dentro del contenedor */
+  position: relative; /* Necesario para el pseudo-elemento */
+}
+
+.fondo::before {
+  content: ""; /* Necesario para el pseudo-elemento */
+  position: absolute; /* Posiciona el pseudo-elemento sobre el fondo */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Color negro con opacidad del 50% */
+  z-index: 1; /* Asegura que esté sobre la imagen de fondo */
+}
+
+.fondo > * {
+  position: relative; /* Asegura que el contenido se sitúe sobre el pseudo-elemento */
+  z-index: 2; /* Asegura que el contenido esté sobre la capa de color */
+}
+
+/* Estilo para el título */
+.fondo-title {
+  font-size: 3.5rem;
+  color: rgb(160, 39, 39);
+  text-shadow: 2px 2px 4px black;
+
+}
+.city-option{
+  font-size: 2.5rem;
+}
+/* Estilo para el botón de reservar cofre */
+.reserve-btn {
+  background-color: #00000084; /* Fondo del botón */
+  color: white; /* Color del texto del botón */
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 0.25rem; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para el botón */
+}
+
+.reserve-btn:hover {
+  background-color: #ff0000; /* Color de fondo del botón en hover */
+}
+
+/* Estilo para la capa de reserva */
+.reserve-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(255, 255, 255); /* Blanco semitransparente */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Asegura que esté por encima del contenido */
+  overflow: auto;
+}
+
+/* Estilo para el contenedor de opciones en la capa de reserva */
+.reserve-container {
+
+  padding: 20px;
+  border-radius: 0.5rem; /* Bordes más redondeados */
+  max-width: 600px; /* Limita el ancho máximo del contenedor */
+  width: 100%; /* Hace que el contenedor se ajuste al ancho disponible */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Estilo para el botón de cerrar en la capa de reserva */
+.close-reserve-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(255, 4, 4, 0.7); /* Fondo oscuro para el botón */
+  color: white; /* Color del texto del botón */
+  border: none;
+  border-radius: 0.25rem; /* Bordes redondeados */
+  padding: 10px;
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para el botón */
+}
+
+.close-reserve-btn:hover {
+  background-color: #ff0000; /* Color de fondo del botón en hover */
+}
+
+/* Estilo para los botones de navegación */
+.btn-container {
+  margin-top: 20px;
+}
+
+/* Ajustes para el calendario */
+.react-calendar {
+  max-width: 100%;
+  background: white;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+  border-radius: 10px;
+}
+
+.react-calendar--doubleView {
+  width: 700px;
+}
+
+.react-calendar--doubleView .react-calendar__viewContainer {
+  display: flex;
+  margin: -0.5em;
+}
+
+.react-calendar--doubleView .react-calendar__viewContainer > * {
+  width: 50%;
+  margin: 0.5em;
+}
+
+.react-calendar,
+.react-calendar *,
+.react-calendar *:before,
+.react-calendar *:after {
+  box-sizing: border-box;
+}
+
+.react-calendar button {
+  margin: 0;
+  border: 0;
+  outline: none;
+}
+
+.react-calendar button:enabled:hover {
+  cursor: pointer;
+}
+
+.react-calendar__navigation {
+  display: flex;
+  height: 44px;
+  margin-bottom: 1em;
+}
+
+.react-calendar__navigation button {
+  min-width: 44px;
+  background: none;
+  color: red;
+}
+
+.react-calendar__navigation button:disabled {
+  background-color: #f0f0f0;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #e6f4e6;
+}
+
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font: bold;
+  font-size: 0.75em;
+  font-weight: 300;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  padding: 0.5em;
+}
+
+.react-calendar__month-view__weekNumbers .react-calendar__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #ff0c0c;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth,
+.react-calendar__decade-view__years__year--neighboringDecade,
+.react-calendar__century-view__decades__decade--neighboringCentury {
+  color: #757575;
+}
+
+.react-calendar__year-view .react-calendar__tile,
+.react-calendar__decade-view .react-calendar__tile,
+.react-calendar__century-view .react-calendar__tile {
+  padding: 2em 0.5em;
+}
+
+.react-calendar__tile {
+  max-width: 100%;
+  padding: 10px 6.6667px;
+  background: transparent;
+  text-align: center;
+  line-height: 16px;
+  font: inherit;
+  font-size: 0.833em;
+}
+
+.react-calendar__tile:disabled {
+  background-color: #f0f0f0;
+  color: #ababab;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth:disabled,
+.react-calendar__decade-view__years__year--neighboringDecade:disabled,
+.react-calendar__century-view__decades__decade--neighboringCentury:disabled {
+  color: #cdcdcd;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background-color: #e6f4e6;
+}
+
+.react-calendar__tile--now {
+  background: #b2d8b2;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: #9fd89f;
+}
+
+.react-calendar__tile--hasActive {
+  background: #a0d6a0;
+}
+
+.react-calendar__tile--hasActive:enabled:hover,
+.react-calendar__tile--hasActive:enabled:focus {
+  background: #85e085;
+}
+
+.react-calendar__tile--active {
+  background: #009900;
+  color: white;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #007700;
+}
+
+.react-calendar--selectRange .react-calendar__tile--hover {
+  background-color: #e6f4e6;
+}
+
+/* Estilo para el contenedor de opciones de hora */
+.time-options {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los botones se envuelvan en varias líneas si es necesario */
+  gap: 20px; /* Espacio de 20px entre los botones */
+  justify-content: center; /* Centra los botones horizontalmente */
+}
+
+/* Estilo para los botones de hora */
+.time-option {
+  background-color: #f8f9fa; /* Fondo claro para los botones */
+  color: #007bff; /* Color del texto */
+  border: 1px solid #007bff; /* Borde del botón */
+  border-radius: 19px; /* Bordes redondeados */
+  padding: 10px 20px; /* Espaciado interno del botón */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s, color 0.3s; /* Transición suave para el cambio de color */
+}
+
+.time-option:hover {
+  background-color: #007bff; /* Fondo del botón al pasar el cursor */
+  color: white; /* Color del texto al pasar el cursor */
+}
+
+.car-type-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.car-type-option {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+.form-check-input:checked + .form-check-label {
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  background-color: #f0f8ff;
+}
+
+
+/**OPCIONES PARA SCROLBAR*/
+.year-dropdown-menu {
+  max-height: 120px; /* Solo mostrar 3 opciones visibles */
+  overflow-y: auto;  /* Activar scroll vertical */
+  text-align: center; /* Centrar texto */
+  padding: 0; /* Eliminar padding extra */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Asegurar que las opciones estén centradas */
+  position: absolute; /* Posiciona el menú con respecto al contenedor */
+  left: 50%; /* Posiciona el menú al 50% del contenedor */
+  transform: translateX(-50%); /* Centra el menú en relación al contenedor */
+  width: auto; /* Ancho automático según el contenido */
+  min-width: 150px; /* Ancho mínimo para evitar que se haga demasiado pequeño */
+}
+
+
+/* Estilos del scroll */
+.year-dropdown-menu .dropdown-item {
+  text-align: center; /* Asegurar que el texto esté centrado */
+  padding: 10px 0; /* Espaciado vertical consistente */
+  height: 40px; /* Altura estándar por opción */
+  line-height: 40px; /* Alinear texto verticalmente */
+}
+
+.year-dropdown-menu::-webkit-scrollbar {
+  width: 8px; /* Ancho del scrollbar */
+}
+
+.year-dropdown-menu::-webkit-scrollbar-thumb {
+  background: #474747; /* Color del scrollbar */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+.year-dropdown-menu::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Fondo de la pista del scrollbar */
+}
+
+
+
+
+/* Ajustes para la visualización en pantallas más pequeñas */
+@media (max-width: 768px) {
+  .options-container {
+    flex-direction: column; /* Cambia la dirección del flex a columna */
+    align-items: stretch; /* Alinea los elementos para que ocupen el ancho completo */
+    gap: 10px; /* Reduce el espacio entre los elementos */
+  }
+
+  .fondo-title {
+    font-size: 2.5rem; /* Ajuste del tamaño de la fuente para pantallas más pequeñas */
+  }
+}
+
+@media (max-width: 480px) {
+  .fondo-title {
+    font-size: 1.8rem; /* Ajuste del tamaño de la fuente para pantallas muy pequeñas */
+  }
+}

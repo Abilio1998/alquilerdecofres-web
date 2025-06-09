@@ -1,0 +1,84 @@
+/* Navbar.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.821); /* Fondo semitransparente */
+  padding: 1px 30px; /* Aumenta el padding para más espacio */
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* src/assets/css/barranavegacion.css */
+.nav-link {
+  text-decoration: none;
+  color: rgb(248, 12, 12); /* Cambia el color según tus necesidades */
+  padding: 0px 10px; /* Añade padding adicional a los enlaces */
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: #ff0505; /* Cambia el color del enlace activo según tus necesidades */
+}
+
+.logo a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  padding: 0 35px; /* Añade padding adicional alrededor del logo */
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  padding-right: 50px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 30px; /* Añade padding adicional a los enlaces del menú */
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 0 15px;
+}
+
+.menu-toggle .bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 3px 0;
+}
+
+/* Estilos para el menú desplegable en móviles */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    text-align: center;
+  }
+
+  .menu.open {
+    display: flex;
+  }
+
+  .menu a {
+    padding: 15px; /* Añade más padding en el menú móvil */
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+}

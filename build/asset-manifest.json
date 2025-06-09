@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.03e823fe.css",
+    "main.js": "/static/js/main.852e7567.js",
+    "static/media/alquiler-de-coche-mataro-barcelona.PNG": "/static/media/alquiler-de-coche-mataro-barcelona.3235c95d6039178316ae.PNG",
+    "static/media/portabicicleta.jpg": "/static/media/portabicicleta.104036fc5f03867f9559.jpg",
+    "static/media/logo.jpg": "/static/media/logo.ba14716ba16b27a19500.jpg",
+    "static/media/barra-transversales.png": "/static/media/barra-transversales.4818e74ab3bcb011dcca.png",
+    "static/media/Railing.png": "/static/media/Railing.638c495a366eb0481893.png",
+    "static/media/barra-longitudinal.png": "/static/media/barra-longitudinal.9be038660310f65f2572.png",
+    "static/media/puntos-de-anclaje.png": "/static/media/puntos-de-anclaje.b5eb01756ef31766977c.png",
+    "static/media/instagram.png": "/static/media/instagram.b691a9313791ac3058c8.png",
+    "static/media/sin-nada.png": "/static/media/sin-nada.9c728b6f709955f03e90.png",
+    "static/media/facebook.png": "/static/media/facebook.11847e03ada611eb2580.png",
+    "index.html": "/index.html",
+    "main.03e823fe.css.map": "/static/css/main.03e823fe.css.map",
+    "main.852e7567.js.map": "/static/js/main.852e7567.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.03e823fe.css",
+    "static/js/main.852e7567.js"
+  ]
+}
