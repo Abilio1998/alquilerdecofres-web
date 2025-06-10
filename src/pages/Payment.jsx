@@ -12,10 +12,11 @@ const Payment = () => {
         returnCity,
         returnDate,
         referenceNumber,
-        totalCost,
         insuranceCost,
         extraCost,
         productImage,
+        TotalPago,
+        productImages, 
         Nameproduct,
     } = location.state || {}; // Asegúrate de manejar el caso donde no hay state
 
@@ -32,24 +33,25 @@ const Payment = () => {
     return (
         <Card className="my-4 shadow">
             <Row>
-            <Col md={4} className="d-flex align-items-center">
-                {productImage && (
-                    <Image 
-                        src={productImage} 
-                        fluid 
-                        className="rounded-start mx-3" // Agrega margen a los lados
-                        style={{ maxHeight: '200px', objectFit: 'contain' }} 
-                    />
-                )}
-            </Col>
+            
 
-
-
-                <Col md={8}>
+                <Col md={12}>
                     <Card.Body>
                         <Card.Title className="text-center">Modelo </Card.Title>
                         <CardText className="text-center"> <strong>Nº Ref:</strong> {referenceNumber}</CardText>
-                        <ListGroup variant="flush">
+                         {/* Imagenes debajo del numero de referencia */}
+                            <div className="d-flex justify-content-center flex-wrap mb-3">
+                                {productImages.map((imgUrl, index) => (
+                                    <Image
+                                        key={index}
+                                        src={imgUrl}
+                                        fluid
+                                        className="m-2"
+                                        style={{ maxHeight: '150px', maxWidth: '150px', objectFit: 'contain' }}
+                                    />
+                                ))}
+                            </div>
+                        <ListGroup variant="flush" className="text-center">
                             <ListGroup.Item>
                                 <strong>Ciudad de Entrega:</strong> {city} <br />
                                 <strong>Fecha de Entrega:</strong> {deliveryDate}
@@ -60,7 +62,7 @@ const Payment = () => {
                             </ListGroup.Item>
                             {insuranceCost !== undefined && (
                                 <ListGroup.Item>
-                                    <strong>Costo del Seguro:</strong> €{insuranceCost.toFixed(2)}
+                                    <strong>Costo del Seguro:</strong> €{insuranceCost}
                                 </ListGroup.Item>
                             )}
                             {extraCost != null && ( // Esto mostrará el costo si es 0 o cualquier otro valor
@@ -69,7 +71,14 @@ const Payment = () => {
                               </ListGroup.Item>
                             )}
                             <ListGroup.Item>
-                                <h3><strong style={{fontSize:'1.2rem'}}>Costo Total:</strong> <strong style={{color:'darkred'}}>€{totalCost.toFixed(2)}</strong></h3>
+                                <h3><strong style={{fontSize:'1.2rem'}}>Pago de Reserva:</strong> <strong style={{color:'darkred'}}>€10</strong></h3>
+                            </ListGroup.Item>
+                            {/* Aquí va tu nota explicativa */}
+                            <ListGroup.Item>
+                                <small style={{ fontSize: '0.9rem', color: '#555' }}>
+                                    El importe total a pagar en el establecimiento es de: <strong>{Number(TotalPago).toFixed(0) - 10}€ </strong>   + una fianza de <strong>100€</strong>. <br />
+                                    Los <strong>10€</strong> de la reserva se han descontado del pago total.
+                                </small>
                             </ListGroup.Item>
                         </ListGroup>
                         <div className="text-center mt-3">

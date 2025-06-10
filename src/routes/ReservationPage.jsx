@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { Container, Row, Col, Button, Form, Card, Toast, Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import extraImage from '../assets/img/barra-coche.jpeg';
-import extraImagePortabici from '../assets/img/portabicicleta.jpg';
+//import extraImage from '../assets/img/barra-coche.jpeg';
+//import extraImagePortabici from '../assets/img/portabicicleta.jpg';
 import { firestore } from '../firebase-config';
 import { collection, query, orderBy, limit, getDocs, deleteDoc } from 'firebase/firestore';
 import { Elements } from '@stripe/react-stripe-js';
@@ -34,7 +34,6 @@ const formatDateToLongText = (dateStr) => {
 function ReservationPage() {
     const [showModal, setShowModal] = useState(false);
     const handlePaymentSuccess = () => {
-        console.log('Pago exitoso');
         handleClose(); // Cierra el modal
     };
 
@@ -47,7 +46,7 @@ function ReservationPage() {
         setTimeout(() => setShowToast({ show: false, message: '', variant }), 5000);
     };
 
-    const [selectedReferenceNumber, setSelectedReferenceNumber] = useState('');
+    const [selectedReferenceNumber, setSelectedReferenceNumber] = useState([0]);
 
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
@@ -62,7 +61,7 @@ function ReservationPage() {
         deliveryTime: initialDeliveryTime,
         returnCity: initialReturnCity,
         returnDate: initialReturnDate,
-        referenceNumber: initialReturnReferenceNumber,
+        //referenceNumber: initialReturnReferenceNumber,
         roofPrice: initialRoofPrice,
         Nameproduct: initialNameProduct
         
@@ -75,17 +74,17 @@ function ReservationPage() {
     const [returnCity, setReturnCity] = useState(initialReturnCity);
     const [returnDate, setReturnDate] = useState(initialReturnDate);
     const [Nameproduct, setNameProduct] = useState(initialNameProduct);
-    const [referenceNumber, setReferenceNumber] = useState(initialReturnReferenceNumber || ''); // Asegúrate de que sea un string vacío si no hay referencia
+    //const [referenceNumber, setReferenceNumber] = useState(initialReturnReferenceNumber || ''); // Asegúrate de que sea un string vacío si no hay referencia
     const [roofPrice, setRoofPrice] = useState(initialRoofPrice);
-    const [insuranceCost, setInsuranceCost] = useState(0);
-    const [extraCost, setExtraCost] = useState(0);
-    const [extraCostPortabici, setExtraCostPortabici] = useState(0);
-    const [extraCostSillaBebe, setExtraCostSillaBebe] = useState(0);
-    const [TotalCost, setTotalCost] = useState(0);
+   // const [insuranceCost, setInsuranceCost] = useState(0);
+  //  const [extraCost, setExtraCost] = useState(0);
+    //const [extraCostPortabici, setExtraCostPortabici] = useState(0);
+    //const [extraCostSillaBebe, setExtraCostSillaBebe] = useState(0);
+    //const [TotalCost, setTotalCost] = useState(0);
     const [daysCount, setDaysCount] = useState(0);
     const [insuranceSelected, setInsuranceSelected] = useState(false);
-    const [extraSelected, setExtraSelected] = useState(false);
-    const [extraSelectedPorabici, setExtraSelectedPortabici] = useState(false);
+    //const [extraSelected, setExtraSelected] = useState(false);
+    //const [extraSelectedPorabici, setExtraSelectedPortabici] = useState(false);
     const [personalInfo, setPersonalInfo] = useState({
         name: '',
         email: '',
@@ -100,13 +99,13 @@ function ReservationPage() {
     const reservationAmount = 10; // Parte del producto a pagar
     const totalAmountToPay = depositAmount + reservationAmount; // Total a pagar para la reserva
 
-
     // Estado para los toasts
     const [showToast, setShowToast] = useState({
         show: false,
         message: '',
         variant: 'success'
     });
+
 
     
 
@@ -151,7 +150,7 @@ function ReservationPage() {
                 setReturnCity(data.returnCity || initialReturnCity);
                 setReturnDate(data.returnDate || initialReturnDate);
                 // Cambiar esta línea
-                setReferenceNumber(data.referenceNumber || ''); // Asegúrate de que sea un string vacío si no hay referencia
+                //setReferenceNumber(data.referenceNumber || ''); // Asegúrate de que sea un string vacío si no hay referencia
                 setRoofPrice(data.roofPrice || initialRoofPrice);
                 setNameProduct(data.Nameproduct || initialNameProduct);
             } else {
@@ -180,7 +179,6 @@ function ReservationPage() {
                 const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24)) + 1; // Asegúrate de agregar 1 día.
                 setDaysCount(differenceInDays);
             } else {
-                console.error('Invalid date format:', { deliveryDate, returnDate });
                 setDaysCount(0);
             }
         }
@@ -213,7 +211,7 @@ const totalInsuranceCost = cart.reduce((acc, product) => {
                 }
     
                 const insuranceTotal = insuranceSelected ? daysCount * 6 : 0; 
-                const total = totalBaseCost + totalDailyCost + extraCost + insuranceTotal;
+                const total = totalBaseCost + totalDailyCost ;
     
                 return {
                     productId: product.identifier,
@@ -228,14 +226,12 @@ const totalInsuranceCost = cart.reduce((acc, product) => {
             const totalSum = calculatedCosts.reduce((sum, item) => sum + item.totalCost, 0) + (parseFloat(roofPrice) || 0);
             setGrandTotal(totalSum); // Actualiza el estado de la suma total
     
-            console.log("Cálculo de costos por producto:", calculatedCosts);
-            console.log("Total a pagar (suma de todos los productos más roofPrice):", totalSum);
+           
         } else {
             setProductCosts([]);
             setGrandTotal(0);
-            console.warn("El carrito está vacío.");
         }
-    }, [extraCost, cart, daysCount, insuranceSelected, roofPrice]); // Asegúrate de agregar roofPrice a las dependencias
+    }, [cart, daysCount, insuranceSelected, roofPrice]); // Asegúrate de agregar roofPrice a las dependencias
     
     
     
@@ -260,6 +256,15 @@ const totalInsuranceCost = cart.reduce((acc, product) => {
     if (!cart || cart.length === 0) {
     return <div>No se encontraron productos en el carrito.</div>;
 }
+// Generar el array de costos
+const productCostsString = cart.map(product => {
+    const productCostData = productCosts.find(
+        (cost) => cost.productId === product.identifier
+    );
+    const totalCostForProduct = productCostData ? productCostData.totalCost : 0;
+    
+    return `${totalCostForProduct}€`;
+}).join(', ');
 
 return (
     <div style={{ backgroundColor: '#F4F4F4', minHeight: '100vh', position: 'relative' }} className='body-ReservationPage'>
@@ -295,7 +300,7 @@ return (
                 );
 
                 const totalCostForProduct = productCostData ? productCostData.totalCost : 0;
-
+               // const totalCostWithoutInsurance = totalCostForProduct - insuranceCost;
                 return (
                     <div key={index} className="product-summary" style={{ marginBottom: '20px' }}>
                         {/* Imagen del producto */}
@@ -313,6 +318,7 @@ return (
                                 <Card.Text><strong><i className="fi fi-rr-arrow-left"></i> {formatDateToLongText(returnDate)} | {returnCity}</strong></Card.Text>
                                 <Card.Text><strong><i className="fi fi-rr-arrows-h"></i></strong> {product?.dimensions}</Card.Text>
                                 <Card.Text><strong><i className="fi fi-rr-calendar-days"></i> {daysCount} DÍA(S)</strong></Card.Text>
+                                
                                 <Card.Text><strong >Precio del producto: </strong> <strong style={{ color: '#C0392B' }}>{totalCostForProduct}€</strong></Card.Text>
                             </div>
                         </div>
@@ -325,10 +331,16 @@ return (
             {/* Mostrar el total combinado */}
             <Card.Text><strong><i className="fi fi-rr-shield-check"></i> Seguro:</strong> {totalInsuranceCost}€</Card.Text>
             <Card.Text><strong>Barras:</strong> {roofPrice}€</Card.Text>
-            <Card.Text className="total-payable-text text-center">
-                <strong style={{ fontSize: '1.5rem', color: '#C0392B' }}>
-                    Total a pagar (todos los productos): {grandTotal.toFixed(2)}€
+            <Card.Text className="total-payable-text">
+                <strong style={{ fontSize: '1.2rem', color: '#C0392B' }}>
+                    Total: {(grandTotal + totalInsuranceCost).toFixed(2)}€
                 </strong>
+
+                <p style={{ marginTop: '10px', fontSize: '1rem', color: '#555' }}>
+                    Para completar la reserva solo debes pagar <strong style={{ color: '#C0392B', fontSize: '1.5rem' }}>10€</strong> ahora. 
+                    El resto del importe total {(grandTotal + totalInsuranceCost).toFixed(2)}€ se abonará el día que recojas el producto en tienda.
+                </p>
+
             </Card.Text>
         </Card.Body>
     </Card>
@@ -377,12 +389,10 @@ return (
                                 <div className="mb-4 section-deposit depositClass" style={{ backgroundColor: '#F9F9F9', padding: '15px', borderRadius: '8px' }}>
                         <h4>Fianza</h4>
                         <p>
-                            Para realizar la reserva, se añadirá una fianza de <strong>100€</strong> al precio total del producto. 
-                            Esto significa que para reservar, solo se pagarán <strong>10€</strong> del total del producto más la fianza, es decir, un total de 
-                            <strong>110€</strong>.
-                        </p>
-                        <p>
-                            El resto del pago se realizará en el local al momento de recoger el producto.
+                          El pago de una <strong> fianza de 100 € es obligatorio</strong> para poder retirar el producto.
+                                    En el momento de la reserva online, solo abonarás <strong>10 €</strong> en concepto de anticipo.
+
+                                    El día que retires el producto en el local, deberás pagar el importe restante correspondiente al precio total del producto + la fianza obligatoria de 100 €.
                         </p>
                     </div>
 
@@ -437,7 +447,7 @@ return (
                                     <>
                                         Acepto los{' '}
                                         <Link to="/terminos-y-condiciones-pago" target="_blank">
-                                        términos y condiciones
+                                        términos y condiciones {Nameproduct}
                                         </Link>
                                     </>
                                     }
@@ -447,7 +457,7 @@ return (
                                 </Form.Group>
                             </Form>
                             <Button variant="danger" className="confirm-button" onClick={confirmReservation}>
-                                Confirmar Reserva
+                                Confirmar Reserva 
                             </Button>
                         </div>
 
@@ -464,7 +474,7 @@ return (
                     >
                         <Modal.Header closeButton>
                             <Modal.Title className="w-100 text-center">
-                                <h4 className="modal-title mb-0">Completar Pago</h4>
+                                <h4 className="modal-title mb-0">Completar  Pago {cart.map(product => product.Nameproduct).join(", ")} </h4>
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body className="py-4">
@@ -478,17 +488,21 @@ return (
                                 deliveryDate={deliveryDate}
                                 returnCity={returnCity}
                                 returnDate={returnDate}
-                                referenceNumber={selectedReferenceNumber}
+                                referenceNumber={cart.map(product => product.identifier).join(', ')}
                                 selectedReferenceNumber={selectedReferenceNumber}
-                                title={product?.title}
-                                product={product}
+                                title={cart.map(product => product.title).join(", ")} 
+                                product={cart}
                                 handleShow={handleShow}
                                 acceptTerms={acceptTerms}
                                 deleteLastReservation={deleteLastReservation}
-                                insuranceCost={insuranceCost}
-                                productImage={product?.imageUrl}
-                                extraCost={extraCost}
+                                insuranceCost={totalInsuranceCost}
+                                productImages={cart.map(product => product.imageUrl)}
+                              //  extraCost={extraCost}
                                 deliveryTime={deliveryTime}
+                                Nameproduct={cart.map(product => product.Nameproduct).join(", ")} 
+                                RoofPrice= {roofPrice}
+                                TotalPago={(grandTotal + totalInsuranceCost).toFixed(2)}
+                                TotalCostForProduct={productCostsString}
                             />
                         </Elements>
                     </Modal.Body>

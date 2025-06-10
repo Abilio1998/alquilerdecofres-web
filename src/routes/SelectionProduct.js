@@ -80,6 +80,7 @@ function ProductCard({ product, onViewDetails, onReserve, onAddToCart, reservati
             </div>
             <Card.Body>
                 <Card.Title>{product.title}</Card.Title>
+                <Card.Text>{product.Nameproduct}</Card.Text>
                 <Card.Text>{product.dimensions}</Card.Text>
                 <Card.Text><strong>Precio total: </strong>{totalCost} €</Card.Text>
                 <div className="d-flex justify-content-between">
@@ -388,6 +389,7 @@ const fetchFilteredProducts = async (productType) => {
                         }}
                     />
                    <span>
+                    
                         <strong>{product.title}</strong> - {calculateTotalCost(product.pricingUnitary, product.dayliPrice, reservation.deliveryDate, reservation.returnDate)} €
                     </span>
 

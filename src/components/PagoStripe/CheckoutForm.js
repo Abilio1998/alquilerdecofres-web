@@ -23,7 +23,12 @@ const CheckoutForm = ({
     deleteLastReservation,
     productImage ,
     deliveryTime,
-    Nameproduct
+    Nameproduct,
+    title,
+    RoofPrice,
+     productImages,
+     TotalCostForProduct,
+     TotalPago 
 }) => {
     const navigate = useNavigate();
     const stripe = useStripe();
@@ -60,114 +65,132 @@ const CheckoutForm = ({
     
 
     const confirmReservationCheckoutForm = async () => {
-        await deleteLastReservation(); 
-    
-        // Validar el correo electrónico
-        if (!validateEmail(personalInfo.email)) {
-            setEmailError('Por favor, introduce un correo electrónico válido.');
+    await deleteLastReservation(); 
+
+    // Validar el correo electrónico
+    if (!validateEmail(personalInfo.email)) {
+        setEmailError('Por favor, introduce un correo electrónico válido.');
+        return;
+    } else {
+        setEmailError(''); // Resetear el error si el email es válido
+    }
+
+    if (!acceptTerms) {
+        showToastNotification('Debes aceptar las condiciones.', 'danger');
+        return;
+    }
+
+    try {
+        // Tomar el primer producto del array
+        const productDataFromArray = product?.[0];
+        
+        if (!productDataFromArray) {
+            showToastNotification('Producto no disponible para confirmar la reserva.', 'danger');
             return;
+        }
+
+        // Validar valores antes de usarlos
+        const safeTotalCost = totalCost || 0; // Usa 0 si totalCost es undefined
+        const safeInsuranceCost = insuranceCost || 0; // Usa 0 si insuranceCost es undefined
+        const safeExtraCost = extraCost || 0; // Usa 0 si extraCost es undefined
+        const safeProductId = productDataFromArray.productId || "Producto sin ID"; // Ahora desde el primer producto del array
+
+        // Asegurarse de que la información personal esté bien definida
+        const safePersonalInfo = {
+            name: personalInfo?.name || "Sin nombre",
+            email: personalInfo?.email || "sinemail@ejemplo.com",
+            phone: personalInfo?.phone || "0000000000",
+        };
+
+        const reservationData = {
+            productId: safeProductId,
+            reservedDate: new Date().toISOString(),
+            city,
+            deliveryDate,
+            returnCity,
+            returnDate,
+            totalCost: safeTotalCost,
+            insuranceCost: safeInsuranceCost,
+            extraCost: safeExtraCost,
+            personalInfo: safePersonalInfo,
+            referenceNumber: selectedReferenceNumber,
+            deliveryTime,
+            Nameproduct,
+            title,
+            RoofPrice,
+            TotalCostForProduct,
+            TotalPago,
+            
+        };
+
+
+        // Agregar reserva a la colección "reserved"
+        const reservedCollection = collection(firestore, 'reserved');
+        await addDoc(reservedCollection, reservationData);
+
+        const productsCollection = collection(firestore, 'products');
+
+        if (!productDataFromArray.identifier) {
+            showToastNotification('Producto no disponible para confirmar la reserva.', 'danger');
+            return;
+        }
+
+        const q = query(productsCollection, where('identifier', '==', productDataFromArray.identifier));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            const doc = querySnapshot.docs[0];
+            const productData = doc.data();
+
+            // Asegurarse de que productData.quantity esté definido
+            const currentQuantity = productData.quantity ? parseInt(productData.quantity, 10) : 0;
+            if (currentQuantity <= 0) {
+                showToastNotification('No hay suficiente stock para completar la reserva.', 'danger');
+                return;
+            }
+
+            const updatedQuantity = Math.max(currentQuantity - 1, 0);
+            const currentReservedProduct = parseInt(productData.reservedProduct || '0', 10);
+            const updatedReservedProduct = currentReservedProduct + 1;
+
+            // Actualizar referenceNumbers
+            const currentReferenceNumbersArray = (productData.referenceNumbers || '').split(',').map(ref => ref.trim());
+            const updatedReferenceNumbersArray = currentReferenceNumbersArray.filter(ref => ref !== selectedReferenceNumber);
+            const updatedReferenceNumbersString = updatedReferenceNumbersArray.join(', ');
+
+            // Agregar a usedReferenceNumbers
+            const currentUsedReferenceNumbersArray = (productData.usedReferenceNumbers || '').split(',').map(ref => ref.trim());
+            currentUsedReferenceNumbersArray.push(selectedReferenceNumber);
+            const updatedUsedReferenceNumbersString = currentUsedReferenceNumbersArray.join(', ');
+
+            // Actualizar documento en Firestore
+            await updateDoc(doc.ref, {
+                quantity: updatedQuantity,
+                reservedProduct: updatedReservedProduct,
+                referenceNumbers: updatedReferenceNumbersString,
+                usedReferenceNumbers: updatedUsedReferenceNumbersString
+            });
         } else {
-            setEmailError(''); // Resetear el error si el email es válido
+            showToastNotification('No se encontró el producto con el identifier.');
         }
-    
-        if (!acceptTerms) {
-            showToastNotification('Debes aceptar las condiciones.', 'danger');
-            return;
+
+        // Eliminar la última reserva si es necesario
+        const reservationsCollection = collection(firestore, 'reservations');
+        const qReservations = query(reservationsCollection, orderBy('createdAt', 'desc'), limit(1));
+        const queryReservationsSnapshot = await getDocs(qReservations);
+
+        if (!queryReservationsSnapshot.empty) {
+            const docToDelete = queryReservationsSnapshot.docs[0];
+            await deleteDoc(docToDelete.ref);
         }
-    
-        try {
-            // Validar valores antes de usarlos
-            const safeTotalCost = totalCost || 0; // Usa 0 si totalCost es undefined
-            const safeInsuranceCost = insuranceCost || 0; // Usa 0 si insuranceCost es undefined
-            const safeExtraCost = extraCost || 0; // Usa 0 si extraCost es undefined
-            //const safeTitle = product?.title || "Producto sin título"; // Asegurarse de que `title` no sea undefined
-            const safeProductId = product?.productId || "Producto sin ID"; // Asegurarse de que `productId` no sea undefined
-    
-            // Asegurarse de que la información personal esté bien definida
-            const safePersonalInfo = {
-                name: personalInfo?.name || "Sin nombre",
-                email: personalInfo?.email || "sinemail@ejemplo.com",
-                phone: personalInfo?.phone || "0000000000",
-            };
-    
-            const reservationData = {
-                productId: safeProductId,
-                reservedDate: new Date().toISOString(),
-                city,
-                deliveryDate,
-                returnCity,
-                returnDate,
-                totalCost: safeTotalCost,
-                insuranceCost: safeInsuranceCost,
-                extraCost: safeExtraCost,
-                personalInfo: safePersonalInfo, // Usar datos personales seguros
-                referenceNumber: selectedReferenceNumber,
-                deliveryTime,
-                Nameproduct
-            };
-    
-            console.log("Datos que se enviarán a Firestore:", reservationData);  // Verificación de los valores
-    
-            // Agregar reserva a la colección "reserved"
-            const reservedCollection = collection(firestore, 'reserved');
-            await addDoc(reservedCollection, reservationData);
-    
-            const productsCollection = collection(firestore, 'products');
-            const q = query(productsCollection, where('identifier', '==', product.identifier));
-            const querySnapshot = await getDocs(q);
-    
-            if (!querySnapshot.empty) {
-                const doc = querySnapshot.docs[0];
-                const productData = doc.data();
-    
-                // Asegurarse de que productData.quantity esté definido
-                const currentQuantity = productData.quantity ? parseInt(productData.quantity, 10) : 0;
-                if (currentQuantity <= 0) {
-                    showToastNotification('No hay suficiente stock para completar la reserva.', 'danger');
-                    return;
-                }
-    
-                const updatedQuantity = Math.max(currentQuantity - 1, 0);
-                const currentReservedProduct = parseInt(productData.reservedProduct || '0', 10);
-                const updatedReservedProduct = currentReservedProduct + 1;
-    
-                // Actualizar referenceNumbers
-                const currentReferenceNumbersArray = (productData.referenceNumbers || '').split(',').map(ref => ref.trim());
-                const updatedReferenceNumbersArray = currentReferenceNumbersArray.filter(ref => ref !== selectedReferenceNumber);
-                const updatedReferenceNumbersString = updatedReferenceNumbersArray.join(', ');
-    
-                // Agregar a usedReferenceNumbers
-                const currentUsedReferenceNumbersArray = (productData.usedReferenceNumbers || '').split(',').map(ref => ref.trim());
-                currentUsedReferenceNumbersArray.push(selectedReferenceNumber);
-                const updatedUsedReferenceNumbersString = currentUsedReferenceNumbersArray.join(', ');
-    
-                // Actualizar documento en Firestore
-                await updateDoc(doc.ref, {
-                    quantity: updatedQuantity,
-                    reservedProduct: updatedReservedProduct,
-                    referenceNumbers: updatedReferenceNumbersString,
-                    usedReferenceNumbers: updatedUsedReferenceNumbersString
-                });
-            } else {
-                showToastNotification('No se encontró el producto con el identifier:');
-            }
-    
-            // Eliminar la última reserva si es necesario
-            const reservationsCollection = collection(firestore, 'reservations');
-            const qReservations = query(reservationsCollection, orderBy('createdAt', 'desc'), limit(1));
-            const queryReservationsSnapshot = await getDocs(qReservations);
-    
-            if (!queryReservationsSnapshot.empty) {
-                const docToDelete = queryReservationsSnapshot.docs[0];
-                await deleteDoc(docToDelete.ref);
-            }
-    
-            showToastNotification('Reserva confirmada');
-        } catch (error) {
-            showToastNotification('Ocurrió un error al confirmar la reserva.', 'danger');
-            console.error("Error al confirmar la reserva:", error);  // Verifica si hay un error en el proceso
-        }
-    };
+
+        showToastNotification('Has pagado 10 € para confirmar tu reserva. El resto se paga en el local.', 'success');
+
+    } catch (error) {
+        showToastNotification('Ocurrió un error al confirmar la reserva.', 'danger');
+    }
+};
+
     
     
 
@@ -179,11 +202,12 @@ const CheckoutForm = ({
                 return;
             }
     
+            const depositAmount = 1000; // 10 euros en centavos
             const response = await fetch('https://powerful-island-47968-ef36e59b26b2.herokuapp.com/create-payment-intent', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    amount: totalCost, // Mantener el totalCost en centavos como cadena
+                    amount: depositAmount, // Se esta cobrando 10€
                     personalInfo: {
                         email: personalInfo.email,
                         name: personalInfo.name,
@@ -197,7 +221,13 @@ const CheckoutForm = ({
                     extraCost,
                     insuranceCost,
                     deliveryTime,
-                    Nameproduct
+                    Nameproduct,
+                    productImages,
+                    productImage: productImage || (Array.isArray(productImages) ? productImages[0] : ''),
+                    title,
+                    RoofPrice,
+                    TotalCostForProduct,
+                    TotalPago 
                 }),
             });
     
@@ -225,7 +255,13 @@ const CheckoutForm = ({
                 returnDate,
                 referenceNumber,
                 deliveryTime,
-                Nameproduct
+                Nameproduct,
+                title,
+                RoofPrice,
+                TotalCostForProduct,
+                TotalPago,
+                productImage: productImage || (Array.isArray(productImages) ? productImages[0] : '')
+
             });
     
             // Confirmar la reserva después de realizar el pago
@@ -242,14 +278,22 @@ const CheckoutForm = ({
                 totalCost,
                 insuranceCost,
                 extraCost,
-                productImage,
+                productImage: productImage || (Array.isArray(productImages) ? productImages[0] : ''),
+                productImages,
                 deliveryTime,
-                Nameproduct
+                Nameproduct,
+                title,
+                RoofPrice,
+                TotalCostForProduct,
+                TotalPago
             };
+
+            // Esperar 2 segundos antes de redirigir
+                setTimeout(() => {
+                    onPaymentSuccess();// Notificación de éxito y redirección final
+                    handleRedirect(reservationData);// Redirigir después de que todo esté completo
+                }, 2000);
     
-            // Notificación de éxito y redirección final
-            onPaymentSuccess();
-            handleRedirect(reservationData);  // Redirigir después de que todo esté completo
     
         } catch (err) {
             setError(err.message || 'Error al procesar el pago. Intenta nuevamente.');

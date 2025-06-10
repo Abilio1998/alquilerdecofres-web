@@ -146,10 +146,10 @@ const Fondo = () => {
 
         // Obtener el precio del techo seleccionado
     const roofPrice = getRoofTypePrice(roofType);
-
+const normalizeString = (str) => str.normalize('NFC');
         try {
             const reservationData = {
-                city,
+                city: normalizeString(city),
                 deliveryDate: deliveryDate.toLocaleDateString('es-ES'),
                 deliveryTime,
                 returnCity,
