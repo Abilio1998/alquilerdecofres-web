@@ -17,6 +17,8 @@ import { Base64 } from 'js-base64'; // Importar la librería Base64
 import Footer from './components/pages/footer';
 import ProductosCards from './components/ProductosCards';
 import SelectionProduct from './routes/SelectionProduct';
+import './assets/css/App.css';
+
 
 function App() {
   // El enlace original que deseas cifrar
@@ -30,6 +32,7 @@ function App() {
         <div className="App">
           <header className="App-header">
             <Barranavegacion />
+            <div className="main-content">
             <Routes>
               <Route path="/" element={<FondoCalendario />} />
               <Route path="/contactar-alquiler-de-cofres" element={<Contacto />} />
@@ -45,7 +48,8 @@ function App() {
               <Route path="/error" element={<ErrorPage />} /> {/* Página de error */}
               <Route path="/terminos-y-condiciones-pago" element={<PaymentTermsPage />} /> {/* Página términos y condiciones */}
             </Routes>
-          </header>
+            </div>
+            </header>
         </div>
         <footer>
           <Footer/>
