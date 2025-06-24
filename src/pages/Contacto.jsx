@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useEffect }from 'react';
 import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
 
 const Contacto = () => {
+
+   ///Posicionar en seo
+     useEffect(() => {
+    document.title = "Contacta con Nosotros - Alquiler de Cofres en Barcelona";
+
+    // Cambiar meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        'content',
+        '¿Tienes dudas o quieres alquilar un cofre? Contáctanos y te ayudamos con el mejor servicio en Barcelona.'
+      );
+    } else {
+      // Si no existe el meta description, crearlo
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = '¿Tienes dudas o quieres alquilar un cofre? Contáctanos y te ayudamos con el mejor servicio en Barcelona.';
+      document.head.appendChild(meta);
+    }
+  }, []);
   return (
     <Container className="mt-5">
       <h1 className="text-center mb-4">Contacto</h1>

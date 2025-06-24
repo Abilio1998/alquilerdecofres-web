@@ -4,6 +4,28 @@ import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase-config'; // Importa firestore desde tu archivo de configuración
 
 const ProductosCards = () => {
+
+
+  ///Posicionar en seo
+     useEffect(() => {
+    document.title = "Cofres para Alquiler - Variedad y Calidad en Mataró";
+
+    // Cambiar meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        'content',
+        'Explora nuestra variedad de cofres para alquiler en Mataró. Calidad garantizada y opciones para todos los gustos.'
+      );
+    } else {
+      // Si no existe el meta description, crearlo
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Explora nuestra variedad de cofres para alquiler en Mataró. Calidad garantizada y opciones para todos los gustos.';
+      document.head.appendChild(meta);
+    }
+  }, []);
+
   const [products, setProducts] = useState([]);
 
   // Cargar los productos desde Firestore

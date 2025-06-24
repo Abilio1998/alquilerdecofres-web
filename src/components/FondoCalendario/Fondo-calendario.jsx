@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../assets/css/fondo.css';
 import Calendar from 'react-calendar';
@@ -19,6 +19,29 @@ import Barra_transversales from '../../assets/img/techos/barra-transversales.png
 import Sin_nada from '../../assets/img/techos/sin-nada.png'
 
 const Fondo = () => {
+
+    ///Posicionar en seo
+     useEffect(() => {
+    document.title = "Alquiler de Cofres en Mataró y Barcelona - Reserva Fácil";
+
+    // Cambiar meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        'content',
+        'Descubre nuestro servicio de alquiler de cofres en Mataró y Barcelona. Reserva fácil y rápido con nosotros.'
+      );
+    } else {
+      // Si no existe el meta description, crearlo
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Descubre nuestro servicio de alquiler de cofres en Mataró y Barcelona. Reserva fácil y rápido con nosotros.';
+      document.head.appendChild(meta);
+    }
+  }, []);
+
+
+
     const [city, setCity] = useState('');
     const [deliveryDate, setDeliveryDate] = useState(null);
     const [deliveryTime, setDeliveryTime] = useState('');
@@ -53,6 +76,7 @@ const Fondo = () => {
     //../../assets/img/techos/puntos-de-anclajes.png
     //../../assets/img/techos/barra-transversales.png
     //../../assets/img/techos/sin-nada.png
+    
 
     const roofTypes = [
         { type: 'Barra Longitudinales', price: 30, image: barra_longitudinal },
