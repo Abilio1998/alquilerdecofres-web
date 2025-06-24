@@ -2,8 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase-config'; // Importa firestore desde tu archivo de configuración
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import { scrollOrNavigate } from '../extra/scrollOrNavigate'
 const ProductosCards = () => {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+
 
 
   ///Posicionar en seo
@@ -44,6 +50,10 @@ const ProductosCards = () => {
     fetchProducts(); // Llama a la función cuando el componente se monta
   }, []);
 
+  const handleClick = () => {
+    scrollOrNavigate(location, navigate);
+  };
+
   return (
     <div className="container mt-5">
       <h2 className="text-center">Nuestros Productos</h2>
@@ -63,7 +73,7 @@ const ProductosCards = () => {
                   <Card.Text>{product.identifier}</Card.Text>
                   <Card.Text>{product.dimensions}</Card.Text>
                   <div className="mt-auto">
-                    <button className="btn btn-primary w-100">Reservar</button>
+                    <button className="btn btn-primary w-100" onClick={handleClick}>Reservar</button>
                   </div>
                 </Card.Body>
               </Card>

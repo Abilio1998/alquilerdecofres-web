@@ -1,72 +1,94 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import '../../assets/css/QuienesSomos.css'; // Asegúrate de crear este archivo para los estilos
+//import reservaIcon from '../../assets/img/reserva-icon.svg'; // ejemplo, ajusta la ruta
+import '../../assets/css/QuienesSomos.css';
+import { BsBoxArrowInRight } from 'react-icons/bs';
+import { useNavigate, useLocation  } from 'react-router-dom';
+import { scrollOrNavigate } from '../../extra/scrollOrNavigate';
 
 const QuienSomos = () => {
+
+ const navigate = useNavigate();
+const location = useLocation();
+
+ const handleReserveClick = () => {
+    scrollOrNavigate(location, navigate);
+  };
   return (
     <Container className="mt-5">
-      <h1 className="text-center mb-4 title">¿Quiénes Somos?</h1>
-      <Row className="mb-5">
-        <Col md={12}>
-          <Card className="text-center shadow">
+      <h1 className="text-center mb-5 display-4 fw-bold text-primary">¿Quiénes Somos?</h1>
+
+      <Row className="mb-5 justify-content-center">
+        <Col md={10}>
+          <Card className="shadow-lg p-4 rounded-4 border-0 bg-light text-center">
             <Card.Body>
-              <h2 className="mb-3">La Primera Empresa de Alquiler de Maleteros de Techo</h2>
-              <p className="lead">
-                Fundada en 2011, Alquilo Cofres se ha convertido en la primera empresa dedicada exclusivamente
-                al servicio de alquiler de maleteros de techo.
+              <h2 className="mb-3 text-secondary">La Primera Empresa de Alquiler de Maleteros de Techo</h2>
+              <p className="lead fs-5 text-dark">
+                Fundada en 2011, <strong>Alquilo Cofres</strong> es la primera empresa dedicada exclusivamente al alquiler de maleteros de techo en Mataró y Barcelona.
+                Nuestra misión es facilitar el transporte y almacenamiento para viajeros y ciudadanos, con soluciones prácticas y accesibles.
               </p>
-              <Button variant="primary" href="/contactar-alquiler-de-cofres" className="mt-3">Contáctanos</Button>
+              <Button
+                variant="success"
+                size="lg"
+                onClick={handleReserveClick}
+                className="mt-4"
+              >
+                Reservar ahora <BsBoxArrowInRight style={{ marginLeft: '10px', fontSize: '1.5rem' }} />
+              </Button>
             </Card.Body>
           </Card>
         </Col>
       </Row>
 
-      <Row>
+      <Row className="g-4">
         <Col md={6}>
-          <Card className="mb-4 shadow">
+          <Card className="h-100 shadow-sm p-3 border-0">
             <Card.Body>
-              <h3 className="mb-3">Un Negocio Familiar</h3>
+              <h3 className="mb-3 text-info">Un Negocio Familiar</h3>
               <p>
-                Somos un pequeño negocio familiar que entiende las necesidades de los viajeros. Nacimos debido a la creciente demanda de los viajeros que necesitan transportar objetos voluminosos y la falta de espacio de los habitantes de las ciudades para almacenar un maletero de techo, el cual, en muchas ocasiones, queda sin uso durante todo el año, ocupando un espacio valioso.
+                Entendemos las necesidades reales de los viajeros y vecinos. Nacimos por la demanda de transporte voluminoso y la falta de espacio para guardar cofres, ofreciendo así una solución que ahorra tiempo y espacio.
               </p>
             </Card.Body>
           </Card>
         </Col>
+
         <Col md={6}>
-          <Card className="mb-4 shadow">
+          <Card className="h-100 shadow-sm p-3 border-0">
             <Card.Body>
-              <h3 className="mb-3">Adaptación a las Necesidades del Cliente</h3>
+              <h3 className="mb-3 text-info">Adaptación a tus Necesidades</h3>
               <p>
-                En Alquilo Cofres, nos adaptamos a la necesidad de nuestros clientes no solo ofreciendo maleteros de techo en alquiler, sino también el servicio de montaje de barras de techo. Esto asegura que nuestros maleteros sean compatibles con la gran mayoría de coches del mercado, facilitando así el transporte de objetos sin complicaciones.
+                Además de alquilar cofres, ofrecemos montaje de barras de techo compatibles con la mayoría de vehículos, garantizando un transporte seguro y cómodo sin complicaciones.
               </p>
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col md={6}>
+          <Card className="h-100 shadow-sm p-3 border-0">
+            <Card.Body>
+              <h3 className="mb-3 text-info">Compromiso con la Calidad</h3>
+              <p>
+                Productos de alta calidad y atención personalizada para que tu experiencia sea siempre satisfactoria. Queremos que disfrutes cada viaje con total tranquilidad.
+              </p>
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col md={6}>
+          <Card className="h-100 shadow-sm p-3 border-0">
+            <Card.Body>
+              <h3 className="mb-3 text-info">Contáctanos</h3>
+              <p>
+                ¿Tienes dudas o necesitas más información? Estamos a tu disposición para ayudarte. Contáctanos y resolveremos todas tus preguntas.
+              </p>
+              <Button variant="primary" href="/contactar-alquiler-de-cofres">
+                Más Información
+              </Button>
             </Card.Body>
           </Card>
         </Col>
       </Row>
 
-      <Row>
-        <Col md={6}>
-          <Card className="mb-4 shadow">
-            <Card.Body>
-              <h3 className="mb-3">Compromiso con la Calidad</h3>
-              <p>
-                Nos comprometemos a ofrecer productos de alta calidad y un servicio excepcional, asegurando que cada cliente se sienta satisfecho y bien atendido. Nuestra misión es hacer que tu experiencia de viaje sea más fácil y cómoda, permitiéndote disfrutar de tus aventuras sin preocupaciones.
-              </p>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={6}>
-          <Card className="mb-4 shadow">
-            <Card.Body>
-              <h3 className="mb-3">Contáctanos</h3>
-              <p>
-                Si deseas más información sobre nuestros servicios o tienes alguna pregunta, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte.
-              </p>
-              <Button variant="primary" href="/contactar-alquiler-de-cofres">Más Información</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
     </Container>
   );
 };
