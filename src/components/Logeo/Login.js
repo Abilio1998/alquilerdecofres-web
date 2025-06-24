@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import app from '../../firebase-config';
 import { Base64 } from 'js-base64'; // Importar Base64
+import { useAuth } from '../../context/auth-context';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const auth = getAuth(app);
   const navigate = useNavigate();
+
+   const { user } = useAuth();
+
+   useEffect(() => {
+    if (user) {
+      // Redirige automáticamente si ya está autenticado
+      const originalLink = '/reservar-de-cofres-mataro-barcelona/proceso-reserva-alquiler-de-cofres-mataro';
+      const encryptedLink = Base64.encode(originalLink);
+      navigate(`/${encryptedLink}`);
+    }
+  }, [user, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();

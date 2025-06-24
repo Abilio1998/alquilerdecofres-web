@@ -4,7 +4,9 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/auth-context';
 
 const ProtectedRoute = ({ element }) => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+  
+   if (loading) return <div>Cargando...</div>; // O un spinner si prefieres
   
   return user ? element : <Navigate to="/login" />;
 };

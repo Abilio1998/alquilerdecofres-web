@@ -24,9 +24,8 @@ const Confirmations = () => {
         // Eliminar la reserva de Firestore usando el ID
         try {
             await deleteDoc(doc(firestore, 'reservations', id));
-            console.log("Reserva eliminada de Firestore");
         } catch (error) {
-            console.error("Error eliminando reserva de Firestore: ", error);
+            console.error("Error eliminando reserva: ", error);
         }
 
         // Navegar de vuelta a la página anterior

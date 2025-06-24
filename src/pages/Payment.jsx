@@ -14,7 +14,6 @@ const Payment = () => {
         referenceNumber,
         insuranceCost,
         extraCost,
-        productImage,
         TotalPago,
         productImages, 
         Nameproduct,

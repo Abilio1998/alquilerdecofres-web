@@ -243,6 +243,11 @@ const totalInsuranceCost = cart.reduce((acc, product) => {
             showToastNotification('Por favor, completa todos los campos de información personal.', 'danger');
             return;
         }
+
+        if (!acceptTerms) {
+        showToastNotification('Debes aceptar los términos y condiciones antes de continuar.', 'danger');
+        return;
+    }
     
         // Mostrar el modal de pago
         handleShow();
@@ -336,10 +341,10 @@ return (
                     Total: {(grandTotal + totalInsuranceCost).toFixed(2)}€
                 </strong>
 
-                <p style={{ marginTop: '10px', fontSize: '1rem', color: '#555' }}>
+                <span style={{ marginTop: '10px', fontSize: '1rem', color: '#555' }}>
                     Para completar la reserva solo debes pagar <strong style={{ color: '#C0392B', fontSize: '1.5rem' }}>10€</strong> ahora. 
                     El resto del importe total {(grandTotal + totalInsuranceCost).toFixed(2)}€ se abonará el día que recojas el producto en tienda.
-                </p>
+                </span>
 
             </Card.Text>
         </Card.Body>
@@ -457,7 +462,7 @@ return (
                                 </Form.Group>
                             </Form>
                             <Button variant="danger" className="confirm-button" onClick={confirmReservation}>
-                                Confirmar Reserva 
+                                Confirmar Reserva 10€
                             </Button>
                         </div>
 
@@ -474,7 +479,7 @@ return (
                     >
                         <Modal.Header closeButton>
                             <Modal.Title className="w-100 text-center">
-                                <h4 className="modal-title mb-0">Completar  Pago {cart.map(product => product.Nameproduct).join(", ")} </h4>
+                                <h4 className="modal-title mb-0">Reserva 10€ | {cart.map(product => product.Nameproduct).join(", ")} </h4>
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body className="py-4">

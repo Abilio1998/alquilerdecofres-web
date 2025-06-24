@@ -7,6 +7,7 @@ import { getFirestore, collection, getDocs, doc, writeBatch } from 'firebase/fir
 import '../assets/css/barranavegacion.css';
 import logo from '../assets/img/logo.jpg';
 import app from '../firebase-config'; // Importa la instancia de la aplicación de Firebase
+import { Base64 } from 'js-base64';
 
 const Barranavegacion = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,18 +82,27 @@ const Barranavegacion = () => {
         >
           Productos
         </NavLink>
+        {user ? (
+  <>
         <NavLink 
-          to="/login" 
+          to={`/${Base64.encode('/reservar-de-cofres-mataro-barcelona/proceso-reserva-alquiler-de-cofres-mataro')}`}
           className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
-          onClick={() => handleNavigationClick('/login')}
         >
-          Login
+          Admin
         </NavLink>
-        {user && (
-          <button onClick={handleLogout} className="btn btn-danger">
-            Cerrar sesión
-          </button>
-        )}
+        <button onClick={handleLogout} className="btn btn-danger ms-2">
+          Cerrar sesión
+        </button>
+      </>
+    ) : (
+      <NavLink 
+        to="/login" 
+        className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+        onClick={() => handleNavigationClick('/login')}
+      >
+        Login
+      </NavLink>
+    )}
       </div>
       <div className="menu-toggle" onClick={toggleMenu}>
         <span className="bar"></span>
