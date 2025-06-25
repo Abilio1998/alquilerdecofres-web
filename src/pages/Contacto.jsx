@@ -24,7 +24,7 @@ const Contacto = () => {
   }, []);
   return (
     <Container className="mt-5">
-      <h1 className="text-center mb-4">Contacto</h1>
+      <h1 className="text-center mb-4" style={{marginTop:'100px'}}>Contacto</h1>
 
       <Row>
         <Col md={6}>

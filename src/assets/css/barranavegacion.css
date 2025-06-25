@@ -26,12 +26,15 @@ nav.navbar {
   font-weight: bold;
   color: #ff0505; /* Cambia el color del enlace activo según tus necesidades */
 }
-
+.logo{
+  margin-top: 10px;
+  padding: 0 55px; 
+}
 .logo a {
   color: white;
   text-decoration: none;
   font-size: 24px;
-  padding: 0 35px; /* Añade padding adicional alrededor del logo */
+ 
 }
 
 .menu {

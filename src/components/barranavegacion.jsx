@@ -51,6 +51,7 @@ const Barranavegacion = () => {
   const handleNavigationClick = (path) => {
     clearReservationsTable(); // Limpiar la tabla de reservas
     navigate(path); // Redirigir a la nueva página
+     setIsOpen(false); // <--- cierra el menú al navegar
   };
 
   return (
