@@ -5,6 +5,7 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Button, Form, Spinner, Alert, Toast } from 'react-bootstrap';
 import { firestore } from '../../firebase-config';
 import { collection, addDoc, query, where, getDocs, updateDoc, deleteDoc, orderBy, limit } from 'firebase/firestore';
+import '../../assets/css/CheckoutForm.css'
 
 const CheckoutForm = ({ 
     totalCost, 
@@ -324,24 +325,36 @@ const CheckoutForm = ({
 
     return (
         <>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Detalles de Pago</Form.Label>
-                    <CardElement />
-                    {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
-                    {emailError && <Alert variant="danger" className="mt-3">{emailError}</Alert>}
-                </Form.Group>
-                <Button type="submit" disabled={!stripe || loading}>
-                    {loading ? (
-                        <>
-                            <Spinner as="span" animation="border" size="sm" className="me-2" />
-                            Procesando...
-                        </>
-                    ) : (
-                        'Pagar'
-                    )}
-                </Button>
+            <Form onSubmit={handleSubmit} className="checkout-form">
+            <Form.Group className="payment-details-group">
+                <Form.Label className="payment-label">Detalles de Pago</Form.Label>
+                <CardElement  
+                options={{
+                style: {
+                base: {
+                    color: '#212529',
+                    fontSize: '16px',
+                    fontFamily: 'Arial, sans-serif',
+                    '::placeholder': {
+                    color: '#6c757d',
+                    },
+                    iconColor: '#007bff',
+                },
+                invalid: {
+                    color: '#dc3545',
+                    iconColor: '#dc3545',
+                },
+                },
+                hidePostalCode: true,  // opcional, para ocultar el campo postal
+            }} />
+                {error && <Alert variant="danger" className="payment-error">{error}</Alert>}
+                {emailError && <Alert variant="danger" className="payment-error">{emailError}</Alert>}
+            </Form.Group>
+            <Button type="submit" className="pay-button" disabled={!stripe || loading}>
+                {loading ? 'Procesando...' : 'Pagar'}
+            </Button>
             </Form>
+
 
             {/* Toast Notification */}
             <Toast

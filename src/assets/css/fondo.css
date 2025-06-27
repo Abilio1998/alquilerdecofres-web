@@ -29,6 +29,11 @@
   position: relative; /* Asegura que el contenido se sitúe sobre el pseudo-elemento */
   z-index: 2; /* Asegura que el contenido esté sobre la capa de color */
 }
+.full-width-red-bar{
+margin-top: -200px;
+padding-top: 50px;
+background-color: blue;
+}
 
 /* Estilo para el título */
 .fondo-title {
@@ -268,7 +273,7 @@
 .time-options {
   display: flex;
   flex-wrap: wrap; /* Permite que los botones se envuelvan en varias líneas si es necesario */
-  gap: 20px; /* Espacio de 20px entre los botones */
+  gap: 5px; /* Espacio de 20px entre los botones */
   justify-content: center; /* Centra los botones horizontalmente */
 }
 

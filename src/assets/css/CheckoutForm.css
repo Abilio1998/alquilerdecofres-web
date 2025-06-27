@@ -1,0 +1,41 @@
+.checkout-form {
+  max-width: 480px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.payment-details-group {
+  margin-bottom: 1.5rem;
+}
+
+.payment-label {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.payment-error {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.pay-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  border: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.pay-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}

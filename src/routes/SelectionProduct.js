@@ -71,7 +71,7 @@ function ProductCard({ product, onViewDetails, onReserve, onAddToCart, reservati
                     </div>
                 )}
                 <Button 
-                    variant="info" 
+                    variant="warning" 
                     style={{ position: 'absolute', bottom: '10px', left: '10px' }} 
                     onClick={() => onViewDetails(product)}
                 >
@@ -85,7 +85,7 @@ function ProductCard({ product, onViewDetails, onReserve, onAddToCart, reservati
                 <Card.Text><strong>Precio total: </strong>{totalCost} €</Card.Text>
                 <div className="d-flex justify-content-between">
                     <Button 
-                        variant="primary" 
+                        variant="danger" 
                         onClick={() => onAddToCart(product)} 
                         disabled={
                             !product.availability || 
@@ -415,7 +415,7 @@ const fetchFilteredProducts = async (productType) => {
 
                 {selectedProduct && (
                     <Modal show={!!selectedProduct} onHide={handleCloseModal} size="lg" centered>
-                        <Modal.Header closeButton className="bg-primary text-white">
+                        <Modal.Header closeButton className="bg-danger text-white">
                             <Modal.Title>{selectedProduct.title}</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>

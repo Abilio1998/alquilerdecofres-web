@@ -28,6 +28,8 @@ const Payment = () => {
       navigate('/'); // Cambia '/' a la ruta a la que deseas que redirija
   };
 
+  
+
 
     return (
         <Card className="my-4 shadow">
@@ -35,7 +37,7 @@ const Payment = () => {
             
 
                 <Col md={12}>
-                    <Card.Body>
+                    <Card.Body style={{marginTop:'100px'}}>
                         <Card.Title className="text-center">Modelo </Card.Title>
                         <CardText className="text-center"> <strong>Nº Ref:</strong> {referenceNumber}</CardText>
                          {/* Imagenes debajo del numero de referencia */}

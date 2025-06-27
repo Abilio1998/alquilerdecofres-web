@@ -272,9 +272,9 @@ const productCostsString = cart.map(product => {
 }).join(', ');
 
 return (
-    <div style={{ backgroundColor: '#F4F4F4', minHeight: '100vh', position: 'relative' }} className='body-ReservationPage'>
-        <Container className="mt-5 reservation-container">
-            <div className="full-width-red-bar">
+    <div style={{ backgroundColor: '#F4F4F4', minHeight: '100vh', position: 'relative'}} className='body-ReservationPage'>
+        <Container className="mt-5 reservation-container" >
+            <div className="full-width-red-bar" style={{marginTop:'-50px', paddingTop:'70px', height:'160px'}}>
                 <div className="horizontal-data">
                     <div className="data-item">
                         <strong>Ciudad de entrega:</strong> {city}
@@ -293,8 +293,8 @@ return (
             <Row>
             <Col xs={12} md={6}>
     {/* Tarjeta de resumen completo */}
-    <Card className="mb-4 mt-5 product-card cardClass" style={{ marginTop: '20px' }}>
-        <Card.Body>
+    <Card className="mb-4 mt-5 product-card cardClass"  >
+        <Card.Body style={{marginTop:'100px'}}>
             <Card.Title>Resumen Completo de la Reserva</Card.Title>
             <hr />
 
@@ -354,8 +354,8 @@ return (
 
     
                     <Col xs={12} md={6}>
-                        <div className="mb-4 mt-5 section-insurance coberturaClass">
-                            <h4>Cobertura</h4>
+                        <div className="mb-4 mt-5 section-insurance coberturaClass" >
+                            <h4 style={{marginTop:'100px'}}>Cobertura</h4>
                             <Row>
                                 <Col xs={6}>
                                     <Form.Check

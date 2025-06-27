@@ -318,10 +318,10 @@ const normalizeString = (str) => str.normalize('NFC');
                     <div className="options-container">
                         <h2>Seleccionar Marca de Coche</h2>
                         <Dropdown>
-                            <Dropdown.Toggle variant="secondary" id="dropdown-brand" >
+                            <Dropdown.Toggle variant="secondary" className='btn btn-light' id="dropdown-brand" style={{width:'100%'}}>
                                 {carBrand || 'Selecciona una Marca'}
                             </Dropdown.Toggle>
-                            <Dropdown.Menu style={{width:'200px', textAlign:'center'}}>
+                            <Dropdown.Menu style={{width:'100%', textAlign:'center'}}>
                                 {carBrands.map((brand) => (
                                     <Dropdown.Item
                                         key={brand}
@@ -339,10 +339,10 @@ const normalizeString = (str) => str.normalize('NFC');
                     <div className="options-container">
                         <h2>Seleccionar Modelo de Coche</h2>
                         <Dropdown>
-                            <Dropdown.Toggle variant="secondary" id="dropdown-model">
+                            <Dropdown.Toggle variant="secondary" id="dropdown-model" className='btn btn-light' style={{width:'100%'}}>
                                 {carModel || 'Selecciona un Modelo'}
                             </Dropdown.Toggle>
-                            <Dropdown.Menu style={{width:'200px', textAlign:'center'}}>
+                            <Dropdown.Menu style={{width:'100%', textAlign:'center'}}>
                                 {carModelsForSelectedBrand.map((model) => (
                                     <Dropdown.Item
                                         key={model}
@@ -356,14 +356,14 @@ const normalizeString = (str) => str.normalize('NFC');
                     </div>
                 );
                 case 8:
-                return (
+                return ( 
                    <div className="options-container">
                         <h2>Seleccionar Año del Coche</h2>
                         <Dropdown>
-                            <Dropdown.Toggle variant="secondary" id="dropdown-year" style={{width:'175px'}}>
+                            <Dropdown.Toggle variant="secondary" id="dropdown-year" className='btn btn-light' style={{width:'100%'}}>
                                 {carYear || 'Selecciona un Año'}
                             </Dropdown.Toggle>
-                            <Dropdown.Menu style={{width:'100px', marginLeft:'8px', textAlign:'center'}}>
+                            <Dropdown.Menu style={{ marginLeft:'0px', textAlign:'center', width:'100%'}}>
                                 {carYears.map((year) => (
                                     <Dropdown.Item
                                         key={year}

@@ -63,7 +63,7 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">Iniciar sesión</button>
+        <button type="submit" className="btn btn-danger">Iniciar sesión</button>
       </form>
     </div>
   );

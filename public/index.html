@@ -25,6 +25,20 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <script>
+        (function() {
+          const noIndexRoutes = ['/login-alquiler-de-cofres', '/terminos-y-condiciones-pago', '/L3BheW1lbnQ=']; // Agrega aquí las rutas que NO quieres indexar
+          const path = window.location.pathname;
+
+          if (noIndexRoutes.includes(path)) {
+            const meta = document.createElement('meta');
+            meta.name = 'robots';
+            meta.content = 'noindex, nofollow';
+            document.head.appendChild(meta);
+          }
+        })();
+      </script>
+
     <title>Alquiler de Cofres en Mataró y Barcelona - Reserva Fácil</title>
   </head>
   <body>

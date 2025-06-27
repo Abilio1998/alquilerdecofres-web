@@ -34,7 +34,7 @@ const Confirmations = () => {
 
     return (
         <div className="confirmation-container">
-            <h1>Confirmación de Reserva</h1>
+            <h1 style={{marginTop:'80px'}}>Confirmación de Reserva</h1>
             <div className="confirmation-details">
                 <div className="confirmation-item">
                     <strong>Ciudad de entrega:</strong> {city}
@@ -58,7 +58,7 @@ const Confirmations = () => {
                     <strong>Modelo:</strong> {carModel}
                 </div>
             </div>
-            <button className="btn btn-primary mt-4" onClick={handleGoBack}>Volver</button>
+            <button className="btn btn-dark mt-4" onClick={handleGoBack}>Volver</button>
         </div>
     );
 };

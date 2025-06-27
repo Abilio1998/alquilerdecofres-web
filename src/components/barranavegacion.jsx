@@ -83,27 +83,22 @@ const Barranavegacion = () => {
         >
           Productos
         </NavLink>
-        {user ? (
+        {user && (
   <>
-        <NavLink 
-          to={`/${Base64.encode('/reservar-de-cofres-mataro-barcelona/proceso-reserva-alquiler-de-cofres-mataro')}`}
-          className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
-        >
-          Admin
-        </NavLink>
-        <button onClick={handleLogout} className="btn btn-danger ms-2">
-          Cerrar sesión
-        </button>
-      </>
-    ) : (
-      <NavLink 
-        to="/login" 
-        className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
-        onClick={() => handleNavigationClick('/login')}
-      >
-        Login
-      </NavLink>
-    )}
+    <NavLink 
+      to={`/${Base64.encode('/reservar-de-cofres-mataro-barcelona/proceso-reserva-alquiler-de-cofres-mataro')}`}
+      className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+    >
+      Admin
+    </NavLink>
+    <button onClick={handleLogout} className="btn btn-danger ms-2">
+      Cerrar sesión
+    </button>
+  </>
+)}
+
+{!user && null}
+
       </div>
       <div className="menu-toggle" onClick={toggleMenu}>
         <span className="bar"></span>

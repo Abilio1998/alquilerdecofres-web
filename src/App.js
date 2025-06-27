@@ -29,7 +29,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="App">
+        <div className="App wrapper">
           <header className="App-header">
             <Barranavegacion />
             <div className="main-content">
@@ -37,7 +37,7 @@ function App() {
               <Route path="/" element={<FondoCalendario />} />
               <Route path="/contactar-alquiler-de-cofres" element={<Contacto />} />
               <Route path="/seleccion-de-productos-de-alquiler" element={<SelectionProduct />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/login-alquiler-de-cofres" element={<Login />} />
               <Route
                 path={`/${encryptedLink2}`}
                 element={<ProtectedRoute element={<InsertProduct />} />}
@@ -47,6 +47,8 @@ function App() {
               <Route path={`/${Base64.encode('/payment')}`} element={<Payment />} />
               <Route path="/error" element={<ErrorPage />} /> {/* Página de error */}
               <Route path="/terminos-y-condiciones-pago" element={<PaymentTermsPage />} /> {/* Página términos y condiciones */}
+               {/* Ruta 404 - debe ir al final */}
+           <Route path="*" element={<ErrorPage />} />
             </Routes>
             </div>
             </header>
