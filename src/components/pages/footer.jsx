@@ -6,10 +6,12 @@ import logo from '../../assets/img/logo.jpg'; // Asegúrate de que la ruta sea c
 import facebook from '../../assets/img/facebook.png'; // Asegúrate de que la ruta sea correcta
 import instagram from '../../assets/img/instagram.png'; // Asegúrate de que la ruta sea correcta
 import { FaSignInAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
    const [user, setUser] = useState(null);
   const auth = getAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -20,10 +22,9 @@ const Footer = () => {
 
   
 
-  const handleLoginRedirect = () => {
-    // Aquí redirige a la página de login o abre modal, según tu app
-    window.location.href = '/login-alquiler-de-cofres'; // Cambia esta ruta según tu app
-  };
+const handleLoginRedirect = () => {
+  navigate('/login-alquiler-de-cofres');
+};
   return (
     <footer className="footer bg-dark text-light mt-5">
       <Container>
