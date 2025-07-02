@@ -7,12 +7,13 @@ import { Modal } from 'react-bootstrap';
 import { Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchBar from './SearchBar';
+import ReservaForm from './ReservaForm';
 
 const InsertProduct = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [productIdToDelete, setProductIdToDelete] = useState(null);
-
+const [showReservaForm, setShowReservaForm] = useState(false);
   const [alert, setAlert] = useState({ show: false, message: '', type: '' });
 
 
@@ -410,6 +411,13 @@ const InsertProduct = () => {
       <hr />
       {/* Componente de búsqueda */}
       <SearchBar products={products} onFilteredProducts={setFilteredProducts} />
+      <button className="btn btn-primary" onClick={() => setShowReservaForm(true)}>
+        Reservar
+      </button>
+
+      {showReservaForm && (
+        <ReservaForm onClose={() => setShowReservaForm(false)} />
+      )}
       {/* Lista de productos filtrados */}
       <div className="mt-5">
         <h3>Lista de Productos</h3>

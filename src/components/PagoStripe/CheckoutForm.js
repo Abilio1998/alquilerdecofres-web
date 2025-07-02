@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { encode } from 'js-base64';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { Button, Form, Spinner, Alert, Toast } from 'react-bootstrap';
+import { Button, Form, Alert, Toast } from 'react-bootstrap';
 import { firestore } from '../../firebase-config';
 import { collection, addDoc, query, where, getDocs, updateDoc, deleteDoc, orderBy, limit } from 'firebase/firestore';
 import '../../assets/css/CheckoutForm.css'

@@ -1,0 +1,100 @@
+/* Capa blanca que ocupa el 100% de la pantalla y centra todo */
+.reserve-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;      /* ancho total de la pantalla */
+  height: 100vh;     /* altura total de la pantalla */
+  background-color: white; /* fondo blanco */
+  display: flex;
+  justify-content: center; /* centra horizontalmente */
+  align-items: center;     /* centra verticalmente */
+  z-index: 9999;
+  overflow: auto;
+  padding: 20px; /* para que no toque los bordes */
+  box-sizing: border-box;
+}
+
+/* Contenedor que contiene las opciones, para organizar las opciones en fila o columna */
+.reserve-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 900px;
+  width: 100%;
+}
+
+/* Opciones de techo */
+.roof-option {
+  width: 150px;
+  margin: 10px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 8px;
+  transition: border 0.3s;
+}
+
+.roof-option img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.roof-option.selected {
+  border: 2px solid green;
+}
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.selected-dropdown-item {
+  background-color: #444; /* color oscuro que quieras */
+  color: white;           /* texto claro para contraste */
+}
+.selected-city {
+  background-color: #444; /* color oscuro */
+  color: white;           /* texto claro */
+  border-color: #333;     /* opcional: para que el borde combine */
+}
+.city-dropdown-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  gap: 1rem; /* Espacio entre botones */
+  margin-top: 1rem; /* Opcional, para separar del título */
+}
+
+
+
+.navigation-buttons > button:not(:last-child) {
+  margin-right: 1rem;
+}
+
+
+.selected-time {
+  background-color: #444;  /* color oscuro */
+  color: white;            /* texto claro */
+  border-color: #333;      /* opcional para borde */
+}
+
+.custom-dropdown-menu {
+  max-height: 9em; /* Aproximadamente para mostrar 3 items, ajusta según el tamaño de los items */
+  overflow-y: auto; /* Scroll vertical cuando el contenido sobrepase la altura */
+  width: 100% !important;
+  text-align: center;
+}
+
+
+/* Para pantallas pequeñas que ajuste el diseño */
+@media (max-width: 768px) {
+  .reserve-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .roof-option {
+    width: 80%;
+    max-width: 300px;
+  }
+}

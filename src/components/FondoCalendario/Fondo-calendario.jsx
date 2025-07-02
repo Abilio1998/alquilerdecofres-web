@@ -321,7 +321,7 @@ const normalizeString = (str) => str.normalize('NFC');
                             <Dropdown.Toggle variant="secondary" className='btn btn-light' id="dropdown-brand" style={{width:'100%'}}>
                                 {carBrand || 'Selecciona una Marca'}
                             </Dropdown.Toggle>
-                            <Dropdown.Menu style={{width:'100%', textAlign:'center'}}>
+                            <Dropdown.Menu style={{width:'100%', textAlign:'center'}} className="custom-dropdown-menu">
                                 {carBrands.map((brand) => (
                                     <Dropdown.Item
                                         key={brand}
@@ -342,7 +342,7 @@ const normalizeString = (str) => str.normalize('NFC');
                             <Dropdown.Toggle variant="secondary" id="dropdown-model" className='btn btn-light' style={{width:'100%'}}>
                                 {carModel || 'Selecciona un Modelo'}
                             </Dropdown.Toggle>
-                            <Dropdown.Menu style={{width:'100%', textAlign:'center'}}>
+                            <Dropdown.Menu style={{width:'100%', textAlign:'center'}} className="custom-dropdown-menu">
                                 {carModelsForSelectedBrand.map((model) => (
                                     <Dropdown.Item
                                         key={model}
@@ -363,7 +363,7 @@ const normalizeString = (str) => str.normalize('NFC');
                             <Dropdown.Toggle variant="secondary" id="dropdown-year" className='btn btn-light' style={{width:'100%'}}>
                                 {carYear || 'Selecciona un Año'}
                             </Dropdown.Toggle>
-                            <Dropdown.Menu style={{ marginLeft:'0px', textAlign:'center', width:'100%'}}>
+                            <Dropdown.Menu style={{ marginLeft:'0px', textAlign:'center', width:'100%'}} className="custom-dropdown-menu">
                                 {carYears.map((year) => (
                                     <Dropdown.Item
                                         key={year}
@@ -443,16 +443,7 @@ const normalizeString = (str) => str.normalize('NFC');
         </div>
                 );
                 
-            case 11:
-                return (
-                    <div className="options-container">
-                        <h2>Confirmar Reserva</h2>
-                        <button className="btn btn-success" onClick={handleConfirm}>
-                            Confirmar
-                        </button>
-                    </div>
-                );
-            default:
+         default:
                 return (
                     <div className="options-container">
                         <h2>Confirmar Reserva</h2>
