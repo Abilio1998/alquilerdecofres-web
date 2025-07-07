@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const PaymentTermsPage = () => {
+
+
+   useEffect(() => {
+    // Crear la meta etiqueta
+    const meta = document.createElement('meta');
+    meta.name = 'robots';
+    meta.content = 'noindex';
+
+    // Añadirla al head
+    document.head.appendChild(meta);
+
+    // Limpiar cuando el componente se desmonte (por si acaso)
+    return () => {
+      document.head.removeChild(meta);
+    };
+  }, []);
+
   return (
     <Container className='mt-5'>
       <Row className="justify-content-center">
@@ -70,6 +87,13 @@ const PaymentTermsPage = () => {
           <p>
             Al proceder con la transacción, usted acepta estos términos y confirma que es el titular autorizado del método de pago utilizado.
           </p>
+          <p style={{ fontSize: '0.9rem', color: '#555' }}>
+            Para más información o consultas relacionadas con los pagos, puede contactarnos en: <br />
+            <strong>Alquilo Cofres</strong><br />
+            Dirección: Cami Ral 218-220, 08301 - Mataró - España<br />
+            Email: alquilocofres@gmail.com
+          </p>
+
         </Col>
       </Row>
     </Container>

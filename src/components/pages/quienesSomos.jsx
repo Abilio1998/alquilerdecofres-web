@@ -16,7 +16,8 @@ const QuienSomos = () => {
   return (
     <>
       <Container className="mt-5 fade-in">
-        <h1 className="text-center mb-5 display-4 fw-bold text-primary">¿Quiénes Somos?</h1>
+        <h1 className="text-center mb-5 display-5 fw-bold text-dark"> ¿Quiénes Somos? | Alquiler de Cofres de Techo en Barcelona y Mataró</h1>
+
 
         <Row className="mb-5 justify-content-center">
           <Col md={10}>
@@ -29,7 +30,7 @@ const QuienSomos = () => {
               </p>
 
                 <Button
-                  variant="success"
+                  variant="warning"
                   size="lg"
                   onClick={handleReserveClick}
                   className="mt-4"
@@ -45,7 +46,7 @@ const QuienSomos = () => {
           <Col md={6}>
             <Card className="h-100 shadow-sm p-3 border-0 fade-in">
               <Card.Body>
-                <h3 className="mb-3 text-info">Un Negocio Familiar</h3>
+                <h3 className="mb-3 text-danger">Un Negocio Familiar</h3>
                 <p>
                   Entendemos las necesidades reales de los viajeros y vecinos. Nacimos por la demanda de transporte voluminoso y la falta de espacio para guardar cofres, ofreciendo así una solución que ahorra tiempo y espacio.
                 </p>
@@ -56,7 +57,7 @@ const QuienSomos = () => {
           <Col md={6}>
             <Card className="h-100 shadow-sm p-3 border-0 fade-in">
               <Card.Body>
-                <h3 className="mb-3 text-info">Adaptación a tus Necesidades</h3>
+                <h3 className="mb-3 text-danger">Adaptación a tus Necesidades</h3>
                 <p>
                   Además de alquilar cofres, ofrecemos montaje de barras de techo compatibles con la mayoría de vehículos, garantizando un transporte seguro y cómodo sin complicaciones.
                 </p>
@@ -67,7 +68,7 @@ const QuienSomos = () => {
           <Col md={6}>
             <Card className="h-100 shadow-sm p-3 border-0 fade-in">
               <Card.Body>
-                <h3 className="mb-3 text-info">Compromiso con la Calidad</h3>
+                <h3 className="mb-3 text-danger">Compromiso con la Calidad</h3>
                 <p>
                   Productos de alta calidad y atención personalizada para que tu experiencia sea siempre satisfactoria. Queremos que disfrutes cada viaje con total tranquilidad.
                 </p>
@@ -78,12 +79,12 @@ const QuienSomos = () => {
           <Col md={6}>
             <Card className="h-100 shadow-sm p-3 border-0 fade-in">
               <Card.Body>
-                <h3 className="mb-3 text-info">Contáctanos</h3>
+                <h3 className="mb-3 text-danger">Contáctanos</h3>
                 <p>
                   ¿Tienes dudas o necesitas más información? Estamos a tu disposición para ayudarte. Contáctanos y resolveremos todas tus preguntas.
                 </p>
                <Button
-                  variant="outline-info"
+                  variant="outline-warning"
                   className="mt-4"
                   onClick={() => navigate('/contactar-alquiler-de-cofres')}
                 >
@@ -96,7 +97,7 @@ const QuienSomos = () => {
           <Col md={6}>
           <Card className="h-100 shadow-sm p-3 border-0 fade-in">
             <Card.Body>
-              <h3 className="mb-3 text-info">Más que Cofres</h3>
+              <h3 className="mb-3 text-danger">Más que Cofres</h3>
               <p>
                 También alquilamos sillitas de bebé homologadas y portabicicletas seguros para que viajes con comodidad, seguridad y sin limitaciones. Consulta disponibilidad y tipos de accesorios que ofrecemos.
               </p>
@@ -104,7 +105,7 @@ const QuienSomos = () => {
                 Explora nuestra selección de productos de alquiler: cofres de techo, portabicicletas y sillitas de bebé disponibles en Mataró y Barcelona.
               </p>
               <Button
-                variant="primary"
+                variant="outline-warning"
                 size="lg"
                 className="mt-3"
                 onClick={() => navigate('/productos')}
@@ -120,7 +121,7 @@ const QuienSomos = () => {
         </Row>
          <div className="text-center mt-4">
                   <Button
-                    variant="success"
+                    variant="warning"
                     size="lg"
                     onClick={handleReserveClick}
                   >
@@ -133,7 +134,7 @@ const QuienSomos = () => {
       {/* Botón fijo solo visible en móviles */}
       <div className="fixed-cta-mobile">
         <Button
-          variant="success"
+          variant="warning"
           size="lg"
           onClick={handleReserveClick}
           className="w-100"
