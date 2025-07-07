@@ -68,6 +68,12 @@ const CheckoutForm = ({
     const confirmReservationCheckoutForm = async () => {
     await deleteLastReservation(); 
 
+    const productDataFromArray = product && product.length > 0 ? product[0] : null;
+if (!productDataFromArray) {
+    showToastNotification('Producto no válido para la reserva.', 'danger');
+    return;
+}
+
     // Validar el correo electrónico
     if (!validateEmail(personalInfo.email)) {
         setEmailError('Por favor, introduce un correo electrónico válido.');
@@ -131,49 +137,49 @@ const CheckoutForm = ({
 
         const productsCollection = collection(firestore, 'products');
 
-        if (!productDataFromArray.identifier) {
-            showToastNotification('Producto no disponible para confirmar la reserva.', 'danger');
-            return;
+if (!Array.isArray(product) || product.length === 0) {
+    showToastNotification('No hay productos seleccionados para la reserva.', 'danger');
+    return;
+}
+
+// Procesar cada producto en el carrito (cofres, portabicis, sillitas, etc)
+for (const item of product) {
+    const q = query(productsCollection, where('identifier', '==', item.identifier));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+        const doc = querySnapshot.docs[0];
+        const productData = doc.data();
+
+        const currentQuantity = productData.quantity ? parseInt(productData.quantity, 10) : 0;
+        if (currentQuantity <= 0) {
+            showToastNotification(`No hay suficiente stock para el producto ${item.identifier}.`, 'danger');
+            continue;
         }
 
-        const q = query(productsCollection, where('identifier', '==', productDataFromArray.identifier));
-        const querySnapshot = await getDocs(q);
+        const updatedQuantity = Math.max(currentQuantity - 1, 0);
+        const currentReservedProduct = parseInt(productData.reservedProduct || '0', 10);
+        const updatedReservedProduct = currentReservedProduct + 1;
 
-        if (!querySnapshot.empty) {
-            const doc = querySnapshot.docs[0];
-            const productData = doc.data();
+        const currentReferenceNumbersArray = (productData.referenceNumbers || '').split(',').map(ref => ref.trim());
+        const updatedReferenceNumbersArray = currentReferenceNumbersArray.filter(ref => ref !== selectedReferenceNumber);
+        const updatedReferenceNumbersString = updatedReferenceNumbersArray.join(', ');
 
-            // Asegurarse de que productData.quantity esté definido
-            const currentQuantity = productData.quantity ? parseInt(productData.quantity, 10) : 0;
-            if (currentQuantity <= 0) {
-                showToastNotification('No hay suficiente stock para completar la reserva.', 'danger');
-                return;
-            }
+        const currentUsedReferenceNumbersArray = (productData.usedReferenceNumbers || '').split(',').map(ref => ref.trim());
+        currentUsedReferenceNumbersArray.push(selectedReferenceNumber);
+        const updatedUsedReferenceNumbersString = currentUsedReferenceNumbersArray.join(', ');
 
-            const updatedQuantity = Math.max(currentQuantity - 1, 0);
-            const currentReservedProduct = parseInt(productData.reservedProduct || '0', 10);
-            const updatedReservedProduct = currentReservedProduct + 1;
+        await updateDoc(doc.ref, {
+            quantity: updatedQuantity,
+            reservedProduct: updatedReservedProduct,
+            referenceNumbers: updatedReferenceNumbersString,
+            usedReferenceNumbers: updatedUsedReferenceNumbersString
+        });
+    } else {
+        showToastNotification(`No se encontró el producto con el identifier ${item.identifier}.`, 'danger');
+    }
+}
 
-            // Actualizar referenceNumbers
-            const currentReferenceNumbersArray = (productData.referenceNumbers || '').split(',').map(ref => ref.trim());
-            const updatedReferenceNumbersArray = currentReferenceNumbersArray.filter(ref => ref !== selectedReferenceNumber);
-            const updatedReferenceNumbersString = updatedReferenceNumbersArray.join(', ');
-
-            // Agregar a usedReferenceNumbers
-            const currentUsedReferenceNumbersArray = (productData.usedReferenceNumbers || '').split(',').map(ref => ref.trim());
-            currentUsedReferenceNumbersArray.push(selectedReferenceNumber);
-            const updatedUsedReferenceNumbersString = currentUsedReferenceNumbersArray.join(', ');
-
-            // Actualizar documento en Firestore
-            await updateDoc(doc.ref, {
-                quantity: updatedQuantity,
-                reservedProduct: updatedReservedProduct,
-                referenceNumbers: updatedReferenceNumbersString,
-                usedReferenceNumbers: updatedUsedReferenceNumbersString
-            });
-        } else {
-            showToastNotification('No se encontró el producto con el identifier.');
-        }
 
         // Eliminar la última reserva si es necesario
         const reservationsCollection = collection(firestore, 'reservations');

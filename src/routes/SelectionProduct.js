@@ -90,7 +90,7 @@ function ProductCard({ product, onViewDetails, onReserve, onAddToCart, reservati
                         disabled={
                             !product.availability || 
                             product.quantity <= 0 || 
-                            (product.identifier.startsWith('SLB') && cart.some(item => item.identifier.startsWith('SLB')))
+                            (product.identifier.startsWith('SBB') && cart.some(item => item.identifier.startsWith('SBB')))
                         }
                     >
                         Añadir al carrito
@@ -127,8 +127,8 @@ const handleAddToCart = async (product) => {
 
 
 // Si el producto es una Silla Bebe y ya hay una en el carrito, evitar añadir más
-    if (product.identifier.startsWith('SLB')) {
-        const alreadyHasSilla = cart.some(item => item.identifier.startsWith('SLB'));
+    if (product.identifier.startsWith('SBB')) {
+        const alreadyHasSilla = cart.some(item => item.identifier.startsWith('SBB'));
         if (alreadyHasSilla) {
           setAlertMessage('Solo puedes añadir una sillita por reserva.')
             return;
@@ -182,7 +182,7 @@ const handleAddToCart = async (product) => {
                 productPromises.push(getDocs(query(productsCollection, orderBy('identifier'), startAt('PBC'), endAt('PBC\uf8ff'))));
             }
             if (productType.includes('Silla Bebe')) {
-                productPromises.push(getDocs(query(productsCollection, orderBy('identifier'), startAt('SLB'), endAt('SLB\uf8ff'))));
+                productPromises.push(getDocs(query(productsCollection, orderBy('identifier'), startAt('SBB'), endAt('SBB\uf8ff'))));
             }
 
             // Obtener todos los resultados de las consultas
@@ -233,7 +233,7 @@ const fetchFilteredProducts = async (productType) => {
             productPromises.push(getDocs(query(productsCollection, orderBy('identifier'), startAt('PBC'), endAt('PBC\uf8ff'))));
         }
         if (productType.includes('Barra')) {
-            productPromises.push(getDocs(query(productsCollection, orderBy('identifier'), startAt('SLB123'), endAt('SLB\uf8ff'))));
+            productPromises.push(getDocs(query(productsCollection, orderBy('identifier'), startAt('SBB123'), endAt('SBB\uf8ff'))));
         }
 
         // Obtener todos los resultados de las consultas

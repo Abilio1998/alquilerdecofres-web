@@ -73,10 +73,24 @@ const ProductosCards = () => {
     scrollOrNavigate(location, navigate);
   };
 
+const formatProductName = (name) => {
+  switch(name) {
+    case 'sillaBebe':
+      return 'Silla de bebé';
+    case 'portabicicletas':
+      return 'Portabicicletas';
+    case 'cofre':
+      return 'Cofre';
+    default:
+      // Para otros casos, solo capitalizar la primera letra y reemplazar camelCase si quieres
+      return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+};
+
   return (
     <div className="container mt-5">
      <h1 className="text-center display-5 fw-bold fade-in" style={{ marginTop: '100px' }}>
-        🚗 Nuestros Cofres de Alquiler
+        🚗 Nuestros Productos de Alquiler
       </h1>
 
       <p className="lead text-center text-muted mb-5 fade-in">
@@ -119,7 +133,8 @@ const ProductosCards = () => {
                   style={{ height: '200px', objectFit: 'Contain' }}
                 />
                 <Card.Body className="d-flex flex-column">
-                  <Card.Title className="fw-bold text-danger">{product.Nameproduct}</Card.Title>
+                  <Card.Title className="fw-bold text-danger">{formatProductName(product.Nameproduct)}</Card.Title>
+                  
                   <Card.Text className="text-muted small">{product.dimensions}</Card.Text>
                 </Card.Body>
               </Card>

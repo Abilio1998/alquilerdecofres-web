@@ -17,9 +17,11 @@ const [showReservaForm, setShowReservaForm] = useState(false);
   const [alert, setAlert] = useState({ show: false, message: '', type: '' });
 
 
+  const [maxQuantity, setMaxQuantity] = useState(100); // o 0, según convenga
+
   const [productId, setProductId] = useState('');
   const [title, setTitle] = useState('');
-  const [Nameproduct, setNameproduct] = useState(true);
+  const [Nameproduct, setNameproduct] = useState('');
   const [identifierPrefix, setIdentifierPrefix] = useState('PRD'); // Valor por defecto PRD
   const [usedReferenceNumbers, setUsedReferenceNumbers] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -76,6 +78,25 @@ const [showReservaForm, setShowReservaForm] = useState(false);
     });
   };
 
+    const mapPrefixToNameproduct = (prefix) => {
+  switch (prefix) {
+    case 'PRD':
+      return 'cofre';
+    case 'PBC':
+      return 'portabicicletas';
+    case 'SBB':
+      return 'sillaBebe';
+    default:
+      return '';
+  }
+};
+
+useEffect(() => {
+  setNameproduct(mapPrefixToNameproduct(identifierPrefix));
+}, [identifierPrefix]);
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -121,6 +142,8 @@ const [showReservaForm, setShowReservaForm] = useState(false);
     Object.keys(details).forEach((key) => {
       if (details[key]) productData[key] = details[key];
     });
+
+  
   
     try {
       if (editingProductId) {
@@ -150,12 +173,15 @@ const [showReservaForm, setShowReservaForm] = useState(false);
   
 
   const handleEdit = (product) => {
+      const prefix = product.identifier?.slice(0, 3) || 'PRD';
     setEditingProductId(product.id);
     setProductId(product.productId);
     setTitle(product.title);
+     setIdentifierPrefix(prefix); // Esto disparará el useEffect para setNameproduct
     setNameproduct(product.Nameproduct)
-    setQuantity(product.quantity);
-    setReservedProduct(product.reservedProduct);
+    setQuantity(product.quantity || '');
+setReservedProduct(product.reservedProduct || '');
+
     setUsedReferenceNumbers(product.usedReferenceNumbers);
     setReferenceNumbers(product.referenceNumbers);
     setBlockedNumbers(product.blockedNumbers);
@@ -165,6 +191,7 @@ const [showReservaForm, setShowReservaForm] = useState(false);
     setDayliPrice(product.dayliPrice);
     setAvailability(product.availability);
     setImageUrl(product.imageUrl);
+    setMaxQuantity(product.maxQuantity || 100); // Pon un valor por defecto si no existe
     setDetails({
       detail1: product.detail1 || '',
       detail2: product.detail2 || '',
@@ -172,8 +199,12 @@ const [showReservaForm, setShowReservaForm] = useState(false);
       detail4: product.detail4 || '',
       detail5: product.detail5 || '',
       detail6: product.detail6 || '',
+    
+
     });
   };
+
+  
 
   
 
@@ -245,10 +276,26 @@ const [showReservaForm, setShowReservaForm] = useState(false);
     // Asegúrate de que el valor tiene formato correcto (opcional)
     setDayliPrice(value ? `${value} €` : '');
   };
+  const formatProductName = (name) => {
+  switch(name) {
+    case 'sillaBebe':
+      return 'Silla de bebé';
+    case 'portabicicletas':
+      return 'Portabicicletas';
+    case 'cofre':
+      return 'Cofre';
+    default:
+      // Para otros casos, solo capitalizar la primera letra y reemplazar camelCase si quieres
+      return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+};
+
 
   return (
     <div className="container mt-5">
-      <h2>{editingProductId ? 'Modificar Producto' : 'Insertar Producto'}</h2>
+      <h2 style={{marginTop:'100px'}} className='text-center'>Administración</h2>
+      <hr />
+      <h3>{editingProductId ? 'Modificar Producto' : 'Insertar Producto'}</h3>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -258,32 +305,19 @@ const [showReservaForm, setShowReservaForm] = useState(false);
           <p className="mt-2">ID: {productId}</p>
         </div>
         <div className="mb-3">
-          <label className="form-label">Tipo de Identificador: Ej"PRD = COFRE || PBC = PORTABICICLETA || BRA = BARRA || SBB = SILLA BEBE"</label>
+          <label className="form-label">Tipo de Identificador: Ej"PRD = COFRE || PBC = PORTABICICLETA || SBB = SILLA BEBE"</label>
           <select
             className="form-select"
             value={identifierPrefix}
             onChange={(e) => setIdentifierPrefix(e.target.value)} // Actualiza el prefijo
             required
           >
-            <option value="PRD">PRD</option>
-            <option value="PBC">PBC</option>
-            <option value="SBB">SBB</option>
-            <option value="BRA">BRA</option>
+            <option value="PRD">PRD - COFRE</option>
+            <option value="PBC">PBC - PORTABICICLETA</option>
+            <option value="SBB">SBB - SILLA BEBE</option>
           </select>
         </div>
-        <div className="mb-3">
-          <label className="form-label">Selecciona una opción:</label>
-          <select
-            className="form-select"
-            value={Nameproduct}
-            onChange={(e) => setNameproduct(e.target.value)}
-          >
-            <option value="cofre">Cofre</option>
-            <option value="portabicicletas">Portabicicletas</option>
-            <option value="sillaBebe">Silla bebé</option>
-            <option value="barra">Barra</option>
-          </select>
-        </div>
+       
 
         <div className="mb-3">
           <label className="form-label">Número de Cofre (sueltos, separados por comas):</label>
@@ -296,17 +330,7 @@ const [showReservaForm, setShowReservaForm] = useState(false);
             required
           />
         </div>
-        <div className="mb-3">
-          <label className="form-label">Número de Cofre "RESERVADO":</label>
-          <input
-            type="text"
-            className="form-control"
-            value={usedReferenceNumbers}
-            onChange={(e) => setUsedReferenceNumbers(e.target.value)}
-            placeholder=""
-            
-          />
-        </div>
+        
         <div className="mb-3">
           <label className="form-label">Título del producto (obligatorio):</label>
           <input
@@ -320,21 +344,43 @@ const [showReservaForm, setShowReservaForm] = useState(false);
         
         <div className="mb-3">
           <label className="form-label">Cantidad:</label>
-          <input
-            type="number"
-            className="form-control"
-            value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))} // Asegurar que sea un número
-          />
+         <input
+                type="number"
+                className="form-control"
+                value={quantity}
+                min={0}
+                max={maxQuantity}
+                onChange={(e) => {
+                  const val = e.target.value; // string
+                  // Solo aceptar valores numéricos dentro del rango
+                  if (val === '' || (Number(val) >= 0 && Number(val) <= maxQuantity)) {
+                    setQuantity(val);
+                    if (reservedProduct !== '' && Number(reservedProduct) > Number(val)) {
+                      setReservedProduct(val); // también string
+                    }
+                  }
+                }}
+              />
+
+
         </div>
         <div className="mb-3">
           <label className="form-label">Producto Alquilado:</label>
-          <input
-            type="number"
-            className="form-control"
-            value={reservedProduct}
-            onChange={(e) => setReservedProduct(Number(e.target.value))} // Asegurar que sea un número
-          />
+         {/* Producto alquilado */}
+         <input
+                type="number"
+                className="form-control"
+                value={reservedProduct}
+                min={0}
+                max={quantity !== '' ? Number(quantity) : 0}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val === '' || (Number(val) >= 0 && Number(val) <= Number(quantity))) {
+                    setReservedProduct(val);
+                  }
+                }}
+              />
+
         </div>
         <div className="mb-3">
           <label className="form-label">Medidas:</label>
@@ -427,10 +473,10 @@ const [showReservaForm, setShowReservaForm] = useState(false);
               <Card className="mb-3">
                 {product.imageUrl && <Card.Img variant="top" src={product.imageUrl} />} 
                 <Card.Body>
-                  <Card.Title>{product.title}</Card.Title>
+                 <Card.Title>{formatProductName(product.Nameproduct)}</Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">ID: {product.productId}</Card.Subtitle>
-                  <Card.Text><strong>Número de Cofre:</strong> {product.referenceNumbers}</Card.Text>
-                  <Card.Text><strong>Número de Cofre "RESERVADO":</strong> {product.usedReferenceNumbers}</Card.Text>
+                  <Card.Text><strong>Modelo:</strong> {product.title}</Card.Text>
+                  <Card.Text><strong>Código de producto:</strong> {product.referenceNumbers}</Card.Text>
                   <Card.Text><strong>Cantidad:</strong> {product.quantity}</Card.Text>
                   <Card.Text><strong>Producto Alquilado:</strong> {product.reservedProduct}</Card.Text>
                   <Card.Text><strong>Medidas:</strong> {product.dimensions}</Card.Text>
