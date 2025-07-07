@@ -342,11 +342,25 @@ return (
                 </strong>
 
                 <span style={{ marginTop: '10px', fontSize: '1rem', color: '#555' }}>
-                    Para completar la reserva solo debes pagar <strong style={{ color: '#C0392B', fontSize: '1.5rem' }}>10€</strong> ahora. 
+                    Para completar la reserva solo debes pagar <strong style={{ color: '#C0392B', fontSize: '1.5rem' }}>12,10 €</strong> ahora. 
                     El resto del importe total {(grandTotal + totalInsuranceCost).toFixed(2)}€ se abonará el día que recojas el producto en tienda.
                 </span>
 
+                
+
             </Card.Text>
+            <Card.Text style={{ fontSize: '0.9rem', color: '#777', marginTop: '10px' }}>
+                <strong>Desglose del pago anticipado de 12,10 €:</strong>
+                <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+                    <li>Reserva parcial del producto (base): 10,00 €</li>
+                    <li>IVA (21 %): 2,10 €</li>
+                    <li>Comisión pasarela de pago (Stripe): asumida por Alquilo Cofres</li>
+                </ul>
+                El resto del importe + la fianza de 100 € se abonará al recoger el producto.
+                </Card.Text>
+
+
+
         </Card.Body>
     </Card>
 </Col>
@@ -462,7 +476,7 @@ return (
                                 </Form.Group>
                             </Form>
                             <Button variant="danger" className="confirm-button" onClick={confirmReservation}>
-                                Confirmar Reserva 10€
+                                Confirmar Reserva 12,10 €
                             </Button>
                         </div>
 
@@ -479,7 +493,7 @@ return (
                     >
                         <Modal.Header closeButton>
                             <Modal.Title className="w-100 text-center">
-                                <h4 className="modal-title mb-0">Reserva 10€ | {cart.map(product => product.Nameproduct).join(", ")} </h4>
+                                <h4 className="modal-title mb-0">Reserva 12,10 € | {cart.map(product => product.Nameproduct).join(", ")} </h4>
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body className="py-4">

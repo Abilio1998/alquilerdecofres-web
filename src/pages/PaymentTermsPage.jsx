@@ -6,11 +6,23 @@ const PaymentTermsPage = () => {
     <Container className='mt-5'>
       <Row className="justify-content-center">
         <Col md={8}>
-            <h4>Términos y Condiciones de Pago</h4>
+            <h4 style={{marginTop:'100px'}}>Términos y Condiciones de Pago</h4>
             <hr />
           <p>
             Al proceder con el pago en nuestro sitio web o aplicación, usted confirma que ha leído, comprendido y aceptado los siguientes términos y condiciones relacionados con el procesamiento de pagos, la política de reembolsos, y otros aspectos importantes del servicio proporcionado por <strong>Alquilo Cofres</strong>.
           </p>
+          <h5>Precios y costes asociados</h5>
+            <p>
+              Todos los precios mostrados en nuestra plataforma incluyen el IVA aplicable y los costes asociados al funcionamiento del servicio, incluyendo:
+            </p>
+            <ul>
+              <li>Comisiones por procesamiento de pagos (Stripe u otros métodos autorizados).</li>
+              <li>Gastos tecnológicos y de infraestructura (como alojamiento en servidores Heroku).</li>
+            </ul>
+            <p>
+              El importe final mostrado antes de realizar el pago será el precio total a abonar por el cliente. No se aplicarán cargos adicionales tras confirmar la operación.
+            </p>
+
 
           <h5>1. Autorización de Pago</h5>
           <p>

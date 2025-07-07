@@ -191,7 +191,8 @@ for (const item of product) {
             await deleteDoc(docToDelete.ref);
         }
 
-        showToastNotification('Has pagado 10 € para confirmar tu reserva. El resto se paga en el local.', 'success');
+        showToastNotification("Has pagado 12,10 € (10,00 € + IVA) para confirmar tu reserva. El resto se abona al recoger el producto."
+, 'success');
 
     } catch (error) {
         showToastNotification('Ocurrió un error al confirmar la reserva.', 'danger');
@@ -209,7 +210,7 @@ for (const item of product) {
                 return;
             }
     
-            const depositAmount = 1000; // 10 euros en centavos
+            const depositAmount = 1210; // 12,10 euros en centavos (10€ + 21% IVA)
             const response = await fetch('https://powerful-island-47968-ef36e59b26b2.herokuapp.com/create-payment-intent', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -267,7 +268,10 @@ for (const item of product) {
                 RoofPrice,
                 TotalCostForProduct,
                 TotalPago,
-                productImage: productImage || (Array.isArray(productImages) ? productImages[0] : '')
+                productImage: productImage || (Array.isArray(productImages) ? productImages[0] : ''),
+                 ivaAmount: 2.10,
+                baseAmount: 10.00,
+                totalWithIVA: 12.10,
 
             });
     

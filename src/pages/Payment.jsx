@@ -72,13 +72,13 @@ const Payment = () => {
                               </ListGroup.Item>
                             )}
                             <ListGroup.Item>
-                                <h3><strong style={{fontSize:'1.2rem'}}>Pago de Reserva:</strong> <strong style={{color:'darkred'}}>€10</strong></h3>
+                                <h3><strong style={{fontSize:'1.2rem'}}>Pago de Reserva:</strong> <strong style={{color:'darkred'}}>€12,10</strong></h3>
                             </ListGroup.Item>
                             {/* Aquí va tu nota explicativa */}
                             <ListGroup.Item>
                                 <small style={{ fontSize: '0.9rem', color: '#555' }}>
-                                    El importe total a pagar en el establecimiento es de: <strong>{Number(TotalPago).toFixed(0) - 10}€ </strong>   + una fianza de <strong>100€</strong>. <br />
-                                    Los <strong>10€</strong> de la reserva se han descontado del pago total.
+                                    El importe total a pagar en el establecimiento es de: <strong>{Number(TotalPago).toFixed(0) - 12.10}€ </strong>   + una fianza de <strong>100€</strong>. <br />
+                                    Los <strong>12,10€</strong> de la reserva se han descontado del pago total.
                                 </small>
                             </ListGroup.Item>
                         </ListGroup>

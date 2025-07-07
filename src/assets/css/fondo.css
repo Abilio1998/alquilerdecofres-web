@@ -111,6 +111,12 @@ background-color: blue;
 .btn-container {
   margin-top: 20px;
 }
+.logoFooter {
+  width: 120px!important; /* prueba también 150px o más si quieres */
+  height: auto;
+  margin-bottom: 10px;
+}
+
 
 /* Ajustes para el calendario */
 .react-calendar {

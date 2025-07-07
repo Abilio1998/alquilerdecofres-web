@@ -6,7 +6,8 @@ import logo from '../../assets/img/logo.jpg'; // Asegúrate de que la ruta sea c
 import facebook from '../../assets/img/facebook.png'; // Asegúrate de que la ruta sea correcta
 import instagram from '../../assets/img/instagram.png'; // Asegúrate de que la ruta sea correcta
 import { FaSignInAlt } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+
 
 const Footer = () => {
    const [user, setUser] = useState(null);
@@ -52,7 +53,8 @@ const handleLoginRedirect = () => {
             <p><a href="mailto:alquilocofres@gmail.com" className="text-light">alquilocofres@gmail.com</a></p>
           </Col>
           <Col md={4} className="text-center">
-            <img src={logo} alt="Logo Alquilo Cofres" className="logo" />
+           <img src={logo} alt="Logo Alquilo Cofres" className="logoFooter" />
+
             <h5>Alquiler de Cofres</h5>
             <p>
               La primera empresa dedicada exclusivamente al servicio de alquiler de maleteros de techos.
@@ -70,9 +72,15 @@ const handleLoginRedirect = () => {
           </Col>
         </Row>
       </Container>
-      <div className="text-center py-3" style={{ backgroundColor: '#333' }}>
-        <p className="mb-0">© 2024 Alquilo Cofres. Todos los derechos reservados.</p>
-      </div>
+     
+
+<div className="text-center py-3" style={{ backgroundColor: '#333' }}>
+  <p className="mb-0">
+    © 2024 Alquilo Cofres. Todos los derechos reservados. |{' '}
+    <Link to="/terminos-y-condiciones-pago" className="text-light">Términos y condiciones</Link>
+  </p>
+</div>
+
     </footer>
   );
 };
