@@ -197,7 +197,7 @@ const normalizeString = (str) => str.normalize('NFC');
             localStorage.setItem('reservationData', JSON.stringify(reservationWithId));
 
 
-            navigate('/seleccion-de-productos-de-alquiler', { state: { productType } });
+            navigate('/seleccion-de-productos-de-alquiler', { state: { productType, carBrand, carModel } });
 
         } catch (error) {
             console.error('Error añadiendo documento: ', error);

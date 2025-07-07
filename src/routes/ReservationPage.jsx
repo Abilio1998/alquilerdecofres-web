@@ -55,6 +55,8 @@ function ReservationPage() {
     const { state } = location;
     const {
         cart,
+        carBrand, // ← AÑADE ESTO
+        carModel, // ← AÑADE ESTO
         product: initialProduct,
         city: initialCity,
         deliveryDate: initialDeliveryDate,
@@ -66,6 +68,7 @@ function ReservationPage() {
         Nameproduct: initialNameProduct
         
     } = state || {};
+
 
     const [product, setProduct] = useState(initialProduct);
     const [city, setCity] = useState(initialCity);
@@ -448,6 +451,7 @@ return (
 
                                 <Form.Group className="mb-3" controlId="formPhone">
                                     <Form.Label>Teléfono</Form.Label>
+
                                     <Form.Control
                                         type="tel"
                                         placeholder="Introduce tu número de teléfono"
@@ -524,6 +528,8 @@ return (
                                 RoofPrice= {roofPrice}
                                 TotalPago={(grandTotal + totalInsuranceCost).toFixed(2)}
                                 TotalCostForProduct={productCostsString}
+                                 carBrand={carBrand}
+                                 carModel={carModel}
                             />
                         </Elements>
                     </Modal.Body>

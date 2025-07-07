@@ -29,7 +29,9 @@ const CheckoutForm = ({
     RoofPrice,
      productImages,
      TotalCostForProduct,
-     TotalPago 
+     TotalPago, 
+     carBrand,
+     carModel, 
 }) => {
     const navigate = useNavigate();
     const stripe = useStripe();
@@ -127,6 +129,8 @@ if (!productDataFromArray) {
             RoofPrice,
             TotalCostForProduct,
             TotalPago,
+            carBrand, // 👈 GUARDARLO AQUÍ
+            carModel,
             
         };
 
@@ -235,7 +239,9 @@ for (const item of product) {
                     title,
                     RoofPrice,
                     TotalCostForProduct,
-                    TotalPago 
+                    TotalPago,
+                    carBrand, // 👈 GUARDARLO AQUÍ 
+                    carModel,
                 }),
             });
     
@@ -269,6 +275,8 @@ for (const item of product) {
                 TotalCostForProduct,
                 TotalPago,
                 productImage: productImage || (Array.isArray(productImages) ? productImages[0] : ''),
+                carBrand, // 👈 GUARDARLO AQUÍ
+                carModel,
                  ivaAmount: 2.10,
                 baseAmount: 10.00,
                 totalWithIVA: 12.10,
@@ -296,7 +304,9 @@ for (const item of product) {
                 title,
                 RoofPrice,
                 TotalCostForProduct,
-                TotalPago
+                TotalPago,
+                carBrand, // 👈 GUARDARLO AQUÍ
+                carModel,
             };
 
             // Esperar 2 segundos antes de redirigir
