@@ -343,7 +343,9 @@ return (
 
                 <span style={{ marginTop: '10px', fontSize: '1rem', color: '#555' }}>
                     Para completar la reserva solo debes pagar <strong style={{ color: '#C0392B', fontSize: '1.5rem' }}>12,10 €</strong> ahora. 
-                    El resto del importe total {(grandTotal + totalInsuranceCost).toFixed(2)}€ se abonará el día que recojas el producto en tienda.
+                    El resto del importe del total de {(grandTotal + totalInsuranceCost).toFixed(2)}€ se abonará el día que recojas el producto en tienda.
+                    Total del producto a pagar es de: { ((grandTotal + totalInsuranceCost) - 12.10).toFixed(2) } €
+
                 </span>
 
                 
