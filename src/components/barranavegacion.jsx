@@ -77,9 +77,9 @@ const Barranavegacion = () => {
           Contacto
         </NavLink>
         <NavLink 
-          to="/alquiler-cofres-mataro-barcelona" 
+          to="/productos" 
           className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
-          onClick={() => handleNavigationClick('/alquiler-cofres-mataro-barcelona')}
+          onClick={() => handleNavigationClick('/productos')}
         >
           Productos
         </NavLink>

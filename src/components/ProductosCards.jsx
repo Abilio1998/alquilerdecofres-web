@@ -24,8 +24,8 @@ const ProductosCards = () => {
       element.content = content;
     };
 
-    setMeta("description", "Explora nuestra variedad de cofres para alquiler en Mataró. Calidad garantizada y opciones para todos los gustos.");
-    setMeta("keywords", "cofres alquiler, cofres Mataró, alquiler de cofres, cofres Barcelona");
+    setMeta("description", "Alquila cofres de techo, portabicicletas y sillitas de bebé en Mataró y Barcelona. Soluciones prácticas, seguras y cómodas para tus viajes.");
+setMeta("keywords", "alquiler cofres, portabicicletas, sillitas de bebé, Mataró, Barcelona");
     setMeta("robots", "index, follow");
 
     const setOG = (property, content) => {
@@ -90,8 +90,12 @@ const formatProductName = (name) => {
   return (
     <div className="container mt-5">
      <h1 className="text-center display-5 fw-bold fade-in" style={{ marginTop: '100px' }}>
-        🚗 Nuestros Productos de Alquiler
+       🚗 Alquiler de Cofres, Portabicicletas y Sillitas de Bebé en Mataró
       </h1>
+      <p className="lead text-center text-muted mb-5 fade-in">
+          Descubre nuestra selección de <strong>cofres de techo</strong>, <strong>portabicicletas</strong> y <strong>sillitas infantiles</strong> en alquiler. Calidad, seguridad y comodidad para tus viajes desde Mataró.
+        </p>
+
 
       <p className="lead text-center text-muted mb-5 fade-in">
         ¿Necesitas espacio extra? Nuestros cofres para alquiler en Mataró son perfectos para <strong>viajes de aventura</strong>,

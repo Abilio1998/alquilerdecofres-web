@@ -43,7 +43,7 @@ function App() {
                 element={<ProtectedRoute element={<InsertProduct />} />}
               />
               <Route path="/proceso-reserva-cofres-mataro" element={<ReservationPage />} />
-              <Route path="/alquiler-cofres-mataro-barcelona" element={<ProductosCards />} />
+              <Route path="/productos" element={<ProductosCards />} />
               <Route path={`/${Base64.encode('/payment')}`} element={<Payment />} />
               <Route path="/error" element={<ErrorPage />} /> {/* Página de error */}
               <Route path="/terminos-y-condiciones-pago" element={<PaymentTermsPage />} /> {/* Página términos y condiciones */}

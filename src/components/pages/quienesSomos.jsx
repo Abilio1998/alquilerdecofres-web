@@ -23,10 +23,11 @@ const QuienSomos = () => {
             <Card className="shadow-lg p-4 rounded-4 border-0 bg-light text-center">
               <Card.Body>
                 <h2 className="mb-3 text-secondary">La Primera Empresa de Alquiler de Maleteros de Techo</h2>
-                <p className="lead fs-5 text-dark">
-                  Fundada en 2011, <strong>Alquilo Cofres</strong> es la primera empresa dedicada exclusivamente al alquiler de maleteros de techo en Mataró y Barcelona.
-                  Nuestra misión es facilitar el transporte y almacenamiento para viajeros y ciudadanos, con soluciones prácticas y accesibles.
-                </p>
+               <p className="lead fs-5 text-dark">
+                Fundada en 2011, <strong>Alquilo Cofres</strong> es la primera empresa dedicada al alquiler de soluciones de transporte como maleteros de techo, sillitas de bebé y portabicicletas en Mataró y Barcelona.
+                Nuestra misión es facilitar el transporte y almacenamiento para viajeros y ciudadanos, con soluciones prácticas, seguras y accesibles.
+              </p>
+
                 <Button
                   variant="success"
                   size="lg"
@@ -81,13 +82,52 @@ const QuienSomos = () => {
                 <p>
                   ¿Tienes dudas o necesitas más información? Estamos a tu disposición para ayudarte. Contáctanos y resolveremos todas tus preguntas.
                 </p>
-                <button className="fixed-cta-mobile" href="/contactar-alquiler-de-cofres">
+               <Button
+                  variant="outline-info"
+                  className="mt-4"
+                  onClick={() => navigate('/contactar-alquiler-de-cofres')}
+                >
                   Más Información
-                </button>
+                </Button>
+
               </Card.Body>
             </Card>
           </Col>
+          <Col md={6}>
+          <Card className="h-100 shadow-sm p-3 border-0 fade-in">
+            <Card.Body>
+              <h3 className="mb-3 text-info">Más que Cofres</h3>
+              <p>
+                También alquilamos sillitas de bebé homologadas y portabicicletas seguros para que viajes con comodidad, seguridad y sin limitaciones. Consulta disponibilidad y tipos de accesorios que ofrecemos.
+              </p>
+              <p className="mt-3 text-muted">
+                Explora nuestra selección de productos de alquiler: cofres de techo, portabicicletas y sillitas de bebé disponibles en Mataró y Barcelona.
+              </p>
+              <Button
+                variant="primary"
+                size="lg"
+                className="mt-3"
+                onClick={() => navigate('/productos')}
+                aria-label="Ver productos en alquiler: cofres, portabicicletas y sillitas de bebé"
+              >
+                Ver todos nuestros productos de alquiler <BsBoxArrowInRight className="ms-2" />
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+
+
         </Row>
+         <div className="text-center mt-4">
+                  <Button
+                    variant="success"
+                    size="lg"
+                    onClick={handleReserveClick}
+                  >
+                    Reservar <BsBoxArrowInRight className="ms-2" />
+                  </Button>
+                </div>
+
       </Container>
 
       {/* Botón fijo solo visible en móviles */}
