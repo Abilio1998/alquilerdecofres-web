@@ -40,11 +40,7 @@ const Productos = () => {
                 alt={product.title}
                 style={{ height: '300px', objectFit: 'contain' }} // Reducir tamaño de imagen
               />
-              {/* Contenedor del texto debajo de la imagen */}
-              <div className="carousel-text text-center mt-3">
-                <h5>{product.title}</h5>
-                <p>{product.identifier}</p>
-              </div>
+             
             </Carousel.Item>
           ))}
         </Carousel>
