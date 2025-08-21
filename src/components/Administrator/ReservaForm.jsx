@@ -48,6 +48,11 @@ const ReservaForm = ({ onClose }) => {
     }
   }, []);
 
+  const handleCarBrandChange = (brand) => {
+    setCarBrand(brand);
+    setCarModel(''); // Reinicia el modelo cuando cambia la marca
+    setCurrentStep(currentStep + 1); // Avanza automáticamente al siguiente paso
+};
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
     return Array.from({ length: currentYear - 1979 }, (_, i) => 1980 + i);
@@ -88,6 +93,8 @@ const ReservaForm = ({ onClose }) => {
       setShowAlert(true);
       return;
     }
+    
+
 
     const reservationData = {
       city,
@@ -220,7 +227,7 @@ const ReservaForm = ({ onClose }) => {
             </Dropdown.Toggle>
             <Dropdown.Menu style={{width:'100%', textAlign:'center'}} className="custom-dropdown-menu">
               {carBrands.map((brand) => (
-                <Dropdown.Item key={brand} onClick={() => setCarBrand(brand)} className={carBrand === brand ? 'selected-dropdown-item' : ''}>
+                <Dropdown.Item key={brand} onClick={() => handleCarBrandChange(brand)} className={carBrand === brand ? 'selected-dropdown-item' : ''}>
                   {brand}
                 </Dropdown.Item>
               ))}
