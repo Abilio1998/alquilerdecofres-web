@@ -51,7 +51,6 @@ const ReservaForm = ({ onClose }) => {
   const handleCarBrandChange = (brand) => {
     setCarBrand(brand);
     setCarModel(''); // Reinicia el modelo cuando cambia la marca
-    setCurrentStep(currentStep + 1); // Avanza automáticamente al siguiente paso
 };
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
