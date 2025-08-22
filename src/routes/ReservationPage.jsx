@@ -57,6 +57,7 @@ function ReservationPage() {
         cart,
         carBrand, // ← AÑADE ESTO
         carModel, // ← AÑADE ESTO
+        roofType: initialRoofType,
         product: initialProduct,
         city: initialCity,
         deliveryDate: initialDeliveryDate,
@@ -79,6 +80,7 @@ function ReservationPage() {
     const [Nameproduct, setNameProduct] = useState(initialNameProduct);
     //const [referenceNumber, setReferenceNumber] = useState(initialReturnReferenceNumber || ''); // Asegúrate de que sea un string vacío si no hay referencia
     const [roofPrice, setRoofPrice] = useState(initialRoofPrice);
+    const [RoofType, setRoofType] = useState(initialRoofType);
    // const [insuranceCost, setInsuranceCost] = useState(0);
   //  const [extraCost, setExtraCost] = useState(0);
     //const [extraCostPortabici, setExtraCostPortabici] = useState(0);
@@ -155,6 +157,7 @@ function ReservationPage() {
                 // Cambiar esta línea
                 //setReferenceNumber(data.referenceNumber || ''); // Asegúrate de que sea un string vacío si no hay referencia
                 setRoofPrice(data.roofPrice || initialRoofPrice);
+                setRoofType(data.RoofType || initialRoofType);
                 setNameProduct(data.Nameproduct || initialNameProduct);
             } else {
                 navigate('/');
@@ -166,7 +169,7 @@ function ReservationPage() {
     };
 
     fetchLastReservation();
-}, [initialProduct, initialCity, initialDeliveryDate, initialReturnCity, initialReturnDate, initialDeliveryTime , initialRoofPrice, initialNameProduct, navigate]);
+}, [initialProduct, initialCity, initialDeliveryDate, initialReturnCity, initialReturnDate, initialDeliveryTime , initialRoofPrice, initialNameProduct, initialRoofType, navigate]);
 
 
     useEffect(() => {
@@ -246,6 +249,19 @@ const totalInsuranceCost = cart.reduce((acc, product) => {
             showToastNotification('Por favor, completa todos los campos de información personal.', 'danger');
             return;
         }
+
+          console.log('Valores antes de enviar la reserva:', {
+        city,
+        deliveryDate,
+        deliveryTime,
+        returnCity,
+        returnDate,
+        carBrand,
+        carModel,
+        roofPrice,
+        RoofType
+    }); // <-- Esto mostrará si carBrand o cualquier otro campo es undefined
+
 
         if (!acceptTerms) {
         showToastNotification('Debes aceptar los términos y condiciones antes de continuar.', 'danger');
@@ -341,13 +357,13 @@ return (
             <Card.Text><strong>Barras:</strong> {roofPrice}€</Card.Text>
             <Card.Text className="total-payable-text">
                 <strong style={{ fontSize: '1.2rem', color: '#C0392B' }}>
-                    Total: {(grandTotal + totalInsuranceCost).toFixed(2)}€
+                    Total: {(grandTotal + totalInsuranceCost).toFixed(2)}€ 
                 </strong>
-
+                <br />
                 <span style={{ marginTop: '10px', fontSize: '1rem', color: '#555' }}>
-                    Para completar la reserva solo debes pagar <strong style={{ color: '#C0392B', fontSize: '1.5rem' }}>12,10 €</strong> ahora. 
+                    Para completar la reserva solo debes pagar <strong style={{ color: '#C0392B', fontSize: '1.5rem' }}>10€</strong> + IVA ahora. 
                     El resto del importe del total de {(grandTotal + totalInsuranceCost).toFixed(2)}€ se abonará el día que recojas el producto en tienda.
-                    Total del producto a pagar es de: { ((grandTotal + totalInsuranceCost) - 12.10).toFixed(2) } €
+                    Total del producto a pagar es de: { ((grandTotal + totalInsuranceCost) - 10).toFixed(2) } €
 
                 </span>
 
@@ -355,10 +371,10 @@ return (
 
             </Card.Text>
             <Card.Text style={{ fontSize: '0.9rem', color: '#777', marginTop: '10px' }}>
-                <strong>Desglose del pago anticipado de 12,10 €:</strong>
+                <strong>Desglose del pago anticipado de 10€:</strong>
                 <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
                     <li>Reserva parcial del producto (base): 10,00 €</li>
-                    <li>IVA (21 %): 2,10 €</li>
+                    <li>IVA (21 %) incluido</li>
                     <li>Comisión pasarela de pago (Stripe): asumida por Alquilo Cofres</li>
                 </ul>
                 El resto del importe + la fianza de 100 € se abonará al recoger el producto.
@@ -482,7 +498,7 @@ return (
                                 </Form.Group>
                             </Form>
                             <Button variant="danger" className="confirm-button" onClick={confirmReservation}>
-                                Confirmar Reserva 12,10 €
+                                Confirmar Reserva 10€
                             </Button>
                         </div>
 
@@ -499,7 +515,7 @@ return (
                     >
                         <Modal.Header closeButton>
                             <Modal.Title className="w-100 text-center">
-                                <h4 className="modal-title mb-0">Reserva 12,10 € | {cart.map(product => product.Nameproduct).join(", ")} </h4>
+                                <h4 className="modal-title mb-0">Reserva 10€ | {cart.map(product => product.Nameproduct).join(", ")} </h4>
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body className="py-4">
@@ -525,11 +541,12 @@ return (
                               //  extraCost={extraCost}
                                 deliveryTime={deliveryTime}
                                 Nameproduct={cart.map(product => product.Nameproduct).join(", ")} 
-                                RoofPrice= {roofPrice}
+                                roofPrice= {roofPrice}
                                 TotalPago={(grandTotal + totalInsuranceCost).toFixed(2)}
                                 TotalCostForProduct={productCostsString}
                                  carBrand={carBrand}
                                  carModel={carModel}
+                                 roofType={RoofType}
                             />
                         </Elements>
                     </Modal.Body>

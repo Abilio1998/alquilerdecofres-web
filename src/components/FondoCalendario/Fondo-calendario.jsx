@@ -17,6 +17,7 @@ import Railing from '../../assets/img/techos/Railing.png'
 import Puntos_de_anclajes from '../../assets/img/techos/puntos-de-anclaje.png'
 import Barra_transversales from '../../assets/img/techos/barra-transversales.png'
 import Sin_nada from '../../assets/img/techos/sin-nada.png'
+import ReservaForm from '../Administrator/ReservaForm';
 
 const Fondo = () => {
 
@@ -56,6 +57,9 @@ const Fondo = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [showReserveOverlay, setShowReserveOverlay] = useState(false);
 
+    const [showReservaForm, setShowReservaForm] = useState(false);
+
+
     const navigate = useNavigate();
 
     // Generar lista de años desde 1980 hasta el año actual
@@ -82,7 +86,7 @@ const Fondo = () => {
         { type: 'Barra Longitudinales', price: 30, image: barra_longitudinal },
         { type: 'Railing', price: 30, image:Railing },
         { type: 'Puntos de anclajes', price: 50, image: Puntos_de_anclajes},
-        { type: 'Barra transversales', price: 50, image:Barra_transversales},
+        { type: 'Barra transversales', price: 0, image:Barra_transversales},
         { type: 'Sin nada', price: 50, image: Sin_nada },
     ];
     
@@ -197,7 +201,7 @@ const normalizeString = (str) => str.normalize('NFC');
             localStorage.setItem('reservationData', JSON.stringify(reservationWithId));
 
 
-            navigate('/seleccion-de-productos-de-alquiler', { state: { productType, carBrand, carModel } });
+            navigate('/seleccion-de-productos-de-alquiler', { state: { productType, carBrand, carModel, roofType } });
 
         } catch (error) {
             console.error('Error añadiendo documento: ', error);
@@ -219,9 +223,6 @@ const normalizeString = (str) => str.normalize('NFC');
         setShowReserveOverlay(false);
     };
 
-    const handleReserveClick = () => {
-        setShowReserveOverlay(true);
-    };
 
     const generateTimes = () => {
         const times = [];
@@ -460,9 +461,13 @@ const normalizeString = (str) => str.normalize('NFC');
             <div className="fondo">
                 <h1 className="fondo-title">¡Reserva tu cofre ya!</h1>
                 <h3 className='text-center' style={{ fontSize: '0.85rem', color: 'lightgrey' }}>"Descubre el Tesoro de Tus Vacaciones y Reserva Tu Cofre de Experiencias Únicas"</h3>
-                <button className="reserve-btn" onClick={handleReserveClick}>
+                <button className="reserve-btn" onClick={() => setShowReservaForm(true)}>
                     Reservar <img src={reservaIcon} alt="Reservar" className="reserve-icon" style={{ width: '25px' }} />
                 </button>
+{showReservaForm && (
+    <ReservaForm onClose={() => setShowReservaForm(false)} />
+)}
+
                 {showReserveOverlay && (
                     <div className="reserve-overlay">
                         <button className="close-reserve-btn" onClick={handleCloseOverlay}>

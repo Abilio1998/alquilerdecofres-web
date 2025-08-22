@@ -116,7 +116,7 @@ function SelectionProduct() {
 
     
     // He removido initialCart 
-    const { productType: initialProductType = [], carBrand, carModel  } = location.state || {};  
+    const { productType: initialProductType = [], carBrand, carModel, roofType, roofPrice  } = location.state || {};  
 
     // Llamar a fetchFilteredProducts cuando el componente se monta o cuando productType cambia
     useEffect(() => {
@@ -282,7 +282,7 @@ const fetchFilteredProducts = async (productType) => {
             return acc + parseFloat(calculateTotalCost(product.pricingUnitary, product.dayliPrice, reservation.deliveryDate, reservation.returnDate));
         }, 0);
 
-            navigate('/proceso-reserva-cofres-mataro', { state: { cart, reservation, totalCost, carBrand, carModel } });
+            navigate('/proceso-reserva-cofres-mataro', { state: { cart, reservation, totalCost, carBrand, carModel, roofType, roofPrice } });
         } else {
             <Alert variant="danger" className="mt-3">Por favor, añade productos al carrito.</Alert>
 

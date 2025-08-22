@@ -8,6 +8,8 @@ import { Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchBar from './SearchBar';
 import ReservaForm from './ReservaForm';
+import AvailabilityManager from './AvailabilityManager';
+
 
 const InsertProduct = () => {
 
@@ -460,6 +462,11 @@ setReservedProduct(product.reservedProduct || '');
       <button className="btn btn-primary" onClick={() => setShowReservaForm(true)}>
         Reservar
       </button>
+
+      <hr />
+<h3>Gestión de Fechas y Horarios</h3>
+<AvailabilityManager/>
+
 
       {showReservaForm && (
         <ReservaForm onClose={() => setShowReservaForm(false)} />

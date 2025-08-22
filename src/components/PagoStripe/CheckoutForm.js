@@ -26,12 +26,13 @@ const CheckoutForm = ({
     deliveryTime,
     Nameproduct,
     title,
-    RoofPrice,
+    roofPrice,
      productImages,
      TotalCostForProduct,
      TotalPago, 
      carBrand,
      carModel, 
+     roofType
 }) => {
     const navigate = useNavigate();
     const stripe = useStripe();
@@ -126,11 +127,12 @@ if (!productDataFromArray) {
             deliveryTime,
             Nameproduct,
             title,
-            RoofPrice,
+            roofPrice,
             TotalCostForProduct,
             TotalPago,
             carBrand, // 👈 GUARDARLO AQUÍ
             carModel,
+            roofType
             
         };
 
@@ -195,7 +197,7 @@ for (const item of product) {
             await deleteDoc(docToDelete.ref);
         }
 
-        showToastNotification("Has pagado 12,10 € (10,00 € + IVA) para confirmar tu reserva. El resto se abona al recoger el producto."
+        showToastNotification("Has pagado 10,00 € IVA incluido, para confirmar tu reserva. El resto se abona al recoger el producto."
 , 'success');
 
     } catch (error) {
@@ -214,7 +216,7 @@ for (const item of product) {
                 return;
             }
     
-            const depositAmount = 1210; // 12,10 euros en centavos (10€ + 21% IVA)
+            const depositAmount = 1000; 
             const response = await fetch('https://powerful-island-47968-ef36e59b26b2.herokuapp.com/create-payment-intent', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -237,11 +239,12 @@ for (const item of product) {
                     productImages,
                     productImage: productImage || (Array.isArray(productImages) ? productImages[0] : ''),
                     title,
-                    RoofPrice,
+                    roofPrice,
                     TotalCostForProduct,
                     TotalPago,
                     carBrand, // 👈 GUARDARLO AQUÍ 
                     carModel,
+                    roofType
                 }),
             });
     
@@ -271,15 +274,16 @@ for (const item of product) {
                 deliveryTime,
                 Nameproduct,
                 title,
-                RoofPrice,
+                roofPrice,
                 TotalCostForProduct,
                 TotalPago,
                 productImage: productImage || (Array.isArray(productImages) ? productImages[0] : ''),
                 carBrand, // 👈 GUARDARLO AQUÍ
                 carModel,
+                roofType,
                  ivaAmount: 2.10,
                 baseAmount: 10.00,
-                totalWithIVA: 12.10,
+                totalWithIVA: 10,
 
             });
     
@@ -302,11 +306,13 @@ for (const item of product) {
                 deliveryTime,
                 Nameproduct,
                 title,
-                RoofPrice,
+                roofPrice,
                 TotalCostForProduct,
                 TotalPago,
                 carBrand, // 👈 GUARDARLO AQUÍ
                 carModel,
+                roofType,
+                
             };
 
             // Esperar 2 segundos antes de redirigir
